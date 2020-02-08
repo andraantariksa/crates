@@ -1,9 +1,9 @@
-package io.github.andraantariksa.cratesio.data.network.model
+package io.github.andraantariksa.cratesio.data.network.model.CratesDetail
 
 
 import com.google.gson.annotations.SerializedName
 
-data class LinksXXX(
+data class Links(
     @SerializedName("owner_team")
     var ownerTeam: String,
     @SerializedName("owner_user")
@@ -15,5 +15,5 @@ data class LinksXXX(
     @SerializedName("version_downloads")
     var versionDownloads: String,
     @SerializedName("versions")
-    var versions: String
+    var versions: Any
 )

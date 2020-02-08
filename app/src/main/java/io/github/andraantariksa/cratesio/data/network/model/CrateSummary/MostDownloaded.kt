@@ -1,9 +1,10 @@
-package io.github.andraantariksa.cratesio.data.network.model
+package io.github.andraantariksa.cratesio.data.network.model.CrateSummary
 
 
 import com.google.gson.annotations.SerializedName
+import io.github.andraantariksa.cratesio.data.network.model.CrateSummary.Links
 
-data class MostRecentlyDownloaded(
+data class MostDownloaded(
     @SerializedName("badges")
     var badges: Any,
     @SerializedName("categories")
@@ -25,7 +26,7 @@ data class MostRecentlyDownloaded(
     @SerializedName("keywords")
     var keywords: Any,
     @SerializedName("links")
-    var links: LinksXX,
+    var links: Links,
     @SerializedName("max_version")
     var maxVersion: String,
     @SerializedName("name")

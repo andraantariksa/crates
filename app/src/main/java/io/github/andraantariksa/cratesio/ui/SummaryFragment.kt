@@ -1,22 +1,16 @@
-package io.github.andraantariksa.cratesio
+package io.github.andraantariksa.cratesio.ui
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.github.andraantariksa.cratesio.data.network.ConnectivityInterceptorImpl
-import io.github.andraantariksa.cratesio.data.network.CratesioAPIService
-import io.github.andraantariksa.cratesio.data.network.datasource.CrateSummaryDatasourceImpl
-import io.github.andraantariksa.cratesio.data.network.model.CrateSummary
+import io.github.andraantariksa.cratesio.R
+import io.github.andraantariksa.cratesio.data.network.model.CrateSummary.CrateSummary
 import kotlinx.android.synthetic.main.summary_fragment.*
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
@@ -29,7 +23,8 @@ class SummaryFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: SummaryViewModelFactory by instance()
 
     companion object {
-        fun newInstance() = SummaryFragment()
+        fun newInstance() =
+            SummaryFragment()
     }
 
     private lateinit var viewModel: SummaryViewModel
@@ -58,7 +53,8 @@ class SummaryFragment : ScopedFragment(), KodeinAware {
     }
 
     fun initRV(crateSummary: CrateSummary) {
-        recyclerViewCrateSummary.adapter = CrateSummaryAdapter(crateSummary.justUpdated)
+        recyclerViewCrateSummary.adapter =
+            CrateSummaryAdapter(crateSummary.justUpdated)
         recyclerViewCrateSummary.layoutManager = LinearLayoutManager(activity)
     }
 

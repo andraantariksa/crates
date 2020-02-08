@@ -1,9 +1,9 @@
-package io.github.andraantariksa.cratesio.data.network.model
+package io.github.andraantariksa.cratesio.data.network.model.CratesDetail
 
 
 import com.google.gson.annotations.SerializedName
 
-data class PopularKeyword(
+data class Keyword(
     @SerializedName("crates_cnt")
     var cratesCnt: Int,
     @SerializedName("created_at")

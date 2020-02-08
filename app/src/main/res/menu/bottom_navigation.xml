@@ -5,6 +5,6 @@
         android:id="@+id/menuItemDiscover"
         android:title="Discover" />
     <item
-        android:id="@+id/MenuItemMore"
+        android:id="@+id/menuItemMore"
         android:title="More" />
 </menu>

@@ -1,9 +1,9 @@
-package io.github.andraantariksa.cratesio.data.network.model
+package io.github.andraantariksa.cratesio.data.network.model.CratesDetail
 
 
 import com.google.gson.annotations.SerializedName
 
-data class PopularCategory(
+data class Category(
     @SerializedName("category")
     var category: String,
     @SerializedName("crates_cnt")

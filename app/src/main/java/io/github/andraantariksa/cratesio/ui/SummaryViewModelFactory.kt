@@ -1,4 +1,4 @@
-package io.github.andraantariksa.cratesio
+package io.github.andraantariksa.cratesio.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -8,6 +8,8 @@ class SummaryViewModelFactory(
     private val crateSummaryRepository: CrateSummaryRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return SummaryViewModel(crateSummaryRepository) as T
+        return SummaryViewModel(
+            crateSummaryRepository
+        ) as T
     }
 }

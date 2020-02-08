@@ -4,24 +4,25 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.github.andraantariksa.cratesio.data.network.CratesioAPIService
-import io.github.andraantariksa.cratesio.data.network.model.CrateSummary.CrateSummary
+import io.github.andraantariksa.cratesio.data.network.model.CratesDetail.CratesDetail
 import io.github.andraantariksa.cratesio.internal.exception.NoConnectivityException
 
-class CrateSummaryDatasourceImpl(
+class CratesDetailDatasourceImpl(
     private val cratesioAPIService: CratesioAPIService
-): CrateSummaryDatasource {
+): CratesDetailDatasource {
 
-    private val _crateSummary = MutableLiveData<CrateSummary>()
-    override val crateSummary: LiveData<CrateSummary>
-        get() = _crateSummary
+    private val _cratesDetail = MutableLiveData<CratesDetail>()
+    override val cratesDetail: LiveData<CratesDetail>
+        get() = _cratesDetail
 
-    override suspend fun getSummary() {
+    override suspend fun getDetail(cratesId: String) {
         try {
-            val fetchedCrateSummary = cratesioAPIService
-                .getSummary()
-            _crateSummary.postValue(fetchedCrateSummary)
+            val fetchedCratesDetail = cratesioAPIService
+                .getCratesDetail(cratesId)
+            _cratesDetail.postValue(fetchedCratesDetail)
         } catch (ex: NoConnectivityException) {
             Log.d("Connectivity", "No connection", ex)
         }
     }
+
 }

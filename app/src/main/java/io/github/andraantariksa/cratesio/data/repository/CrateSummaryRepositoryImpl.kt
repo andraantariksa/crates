@@ -2,11 +2,8 @@ package io.github.andraantariksa.cratesio.data.repository
 
 import androidx.lifecycle.LiveData
 import io.github.andraantariksa.cratesio.data.network.datasource.CrateSummaryDatasource
-import io.github.andraantariksa.cratesio.data.network.db.CrateSummaryDao
-import io.github.andraantariksa.cratesio.data.network.model.CrateSummary
+import io.github.andraantariksa.cratesio.data.network.model.CrateSummary.CrateSummary
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CrateSummaryRepositoryImpl(

@@ -1,4 +1,4 @@
-package io.github.andraantariksa.cratesio
+package io.github.andraantariksa.cratesio.ui
 
 import androidx.lifecycle.ViewModel
 import io.github.andraantariksa.cratesio.data.repository.CrateSummaryRepository

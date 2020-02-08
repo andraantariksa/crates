@@ -1,4 +1,4 @@
-package io.github.andraantariksa.cratesio
+package io.github.andraantariksa.cratesio.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

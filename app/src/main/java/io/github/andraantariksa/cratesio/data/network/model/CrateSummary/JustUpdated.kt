@@ -1,4 +1,4 @@
-package io.github.andraantariksa.cratesio.data.network.model
+package io.github.andraantariksa.cratesio.data.network.model.CrateSummary
 
 
 import com.google.gson.annotations.SerializedName

@@ -1,13 +1,13 @@
-package io.github.andraantariksa.cratesio.data.network.model
+package io.github.andraantariksa.cratesio.data.network.model.CratesDetail
 
 
 import com.google.gson.annotations.SerializedName
 
-data class MostDownloaded(
+data class Crate(
     @SerializedName("badges")
-    var badges: Any,
+    var badges: List<Badge>,
     @SerializedName("categories")
-    var categories: Any,
+    var categories: List<String>,
     @SerializedName("created_at")
     var createdAt: String,
     @SerializedName("description")
@@ -23,9 +23,9 @@ data class MostDownloaded(
     @SerializedName("id")
     var id: String,
     @SerializedName("keywords")
-    var keywords: Any,
+    var keywords: List<String>,
     @SerializedName("links")
-    var links: LinksX,
+    var links: Links,
     @SerializedName("max_version")
     var maxVersion: String,
     @SerializedName("name")
@@ -33,11 +33,11 @@ data class MostDownloaded(
     @SerializedName("newest_version")
     var newestVersion: String,
     @SerializedName("recent_downloads")
-    var recentDownloads: Any,
+    var recentDownloads: Int,
     @SerializedName("repository")
     var repository: String,
     @SerializedName("updated_at")
     var updatedAt: String,
     @SerializedName("versions")
-    var versions: Any
+    var versions: List<Int>
 )
