@@ -6,17 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.andraantariksa.cratesio.R
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
 
-class MoreFragment : Fragment(), KodeinAware {
-
-    override val kodein by closestKodein()
-
-    companion object {
-        fun newInstance() = MoreFragment()
-    }
-
+class MoreFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

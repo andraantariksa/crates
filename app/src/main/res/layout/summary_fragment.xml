@@ -6,15 +6,15 @@
     android:orientation="vertical"
     tools:context=".ui.SummaryFragment">
 
-    <Spinner
-        android:id="@+id/spinnerCrateSummaryOf"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerCrateSlider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/crateSummaryOf"
-        android:spinnerMode="dropdown" />
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCrateSummary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutCrateSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.viewpager.widget.ViewPager>
 </LinearLayout>

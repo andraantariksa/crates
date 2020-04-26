@@ -9,17 +9,19 @@ import io.github.andraantariksa.cratesio.R
 import io.github.andraantariksa.cratesio.data.network.model.CrateSummary.JustUpdated
 import kotlinx.android.synthetic.main.summary_section_item.view.*
 
-class CrateSummaryAdapter(
-    private val crateSummarySection: List<JustUpdated>
-) : RecyclerView.Adapter<CrateSummaryAdapter.ViewHolder>() {
+// TODO
+class CrateSummaryRecyclerViewAdapter<T>(
+    private val crateSummarySection: List<T>
+) : RecyclerView.Adapter<CrateSummaryRecyclerViewAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return crateSummarySection.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val justUpdatedItem: JustUpdated = crateSummarySection[position]
-        holder.textViewCrateTitle.text = justUpdatedItem.name
-        holder.textViewCrateMaxVersion.text = "(${justUpdatedItem.maxVersion})"
+        val justUpdatedItem: T = crateSummarySection[position]
+        // TODO
+        holder.textViewCrateTitle.text = "${justUpdatedItem}"
+        holder.textViewCrateMaxVersion.text = "(${justUpdatedItem})"
     }
 
     override fun onCreateViewHolder(

@@ -1,4 +1,4 @@
-package io.github.andraantariksa.cratesio.data.network.db
+package io.github.andraantariksa.cratesio.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
