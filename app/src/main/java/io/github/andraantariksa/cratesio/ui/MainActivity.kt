@@ -1,15 +1,14 @@
 package io.github.andraantariksa.cratesio.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
 import io.github.andraantariksa.cratesio.R
-import io.github.andraantariksa.cratesio.data.network.ConnectivityInterceptorImpl
+import io.github.andraantariksa.cratesio.data.api.ConnectivityInterceptorImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,8 +19,10 @@ class MainActivity : AppCompatActivity() {
 
         val connectivity = ConnectivityInterceptorImpl(this)
         if (!connectivity.isOnline()) {
-            Snackbar.make(mainLayout,
-                R.string.no_internet, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(
+                coordinatorLayoutSnackbar,
+                R.string.no_internet, Snackbar.LENGTH_INDEFINITE
+            )
                 .show()
         }
 

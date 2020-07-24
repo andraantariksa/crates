@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import io.github.andraantariksa.cratesio.data.network.model.CrateSummary.CrateSummary
+import io.github.andraantariksa.cratesio.data.api.model.CrateSummary.CrateSummary
 
 @Dao
 interface CrateSummaryDao {

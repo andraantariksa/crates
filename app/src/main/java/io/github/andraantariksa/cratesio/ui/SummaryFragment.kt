@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import io.github.andraantariksa.cratesio.R
-import io.github.andraantariksa.cratesio.data.network.ConnectivityInterceptorImpl
-import io.github.andraantariksa.cratesio.data.network.CratesioAPIService
-import io.github.andraantariksa.cratesio.data.network.datasource.CrateSummaryDatasourceImpl
+import io.github.andraantariksa.cratesio.data.api.ConnectivityInterceptorImpl
+import io.github.andraantariksa.cratesio.data.api.CratesioAPIService
+import io.github.andraantariksa.cratesio.data.api.datasource.CrateSummaryDatasourceImpl
 import io.github.andraantariksa.cratesio.data.repository.CrateSummaryRepositoryImpl
 import kotlinx.android.synthetic.main.summary_fragment.*
+import kotlinx.coroutines.launch
 
 
 class SummaryFragment : ScopedFragment() {
@@ -37,23 +40,42 @@ class SummaryFragment : ScopedFragment() {
 
         viewModel = SummaryViewModel(crateSummaryRepository)
 
-        sliderViewPager = viewPagerCrateSlider
-        sliderViewPager.adapter =
-            CrateSummarySliderAdapter(context!!, viewModel, coroutineContext, viewLifecycleOwner)
-        tabLayoutCrateSlider.setupWithViewPager(sliderViewPager)
+        launch {
+            val crateSummary = viewModel.crateSummary.await()
+            crateSummary.observe(viewLifecycleOwner, Observer {
+                textViewCratesTotalNum.text = it.numCrates.toString()
+                textViewDownloadsTotalNum.text = it.numDownloads.toString()
 
-//        bindUI()
+                val newCratesAdapter =
+                    CrateSummaryRecyclerViewAdapter(it.newCrates)
+                recyclerViewNewCrates.layoutManager = LinearLayoutManager(context)
+                recyclerViewNewCrates.adapter = newCratesAdapter
+
+                val mostDownloadedAdapter =
+                    CrateSummaryRecyclerViewAdapter(it.mostDownloaded)
+                recyclerViewMostDownloaded.layoutManager = LinearLayoutManager(context)
+                recyclerViewMostDownloaded.adapter = mostDownloadedAdapter
+
+                val justUpdatedAdapter =
+                    CrateSummaryRecyclerViewAdapter(it.justUpdated)
+                recyclerViewJustUpdated.layoutManager = LinearLayoutManager(context)
+                recyclerViewJustUpdated.adapter = justUpdatedAdapter
+
+                val mostRecentlyDownloaded =
+                    CrateSummaryRecyclerViewAdapter(it.mostRecentlyDownloaded)
+                recyclerViewMostRecentlyDownloaded.layoutManager = LinearLayoutManager(context)
+                recyclerViewMostRecentlyDownloaded.adapter = mostRecentlyDownloaded
+
+                val mostPopularKeywords =
+                    CrateSummaryRecyclerViewAdapter(it.mostRecentlyDownloaded)
+                recyclerViewPopularKeywords.layoutManager = LinearLayoutManager(context)
+                recyclerViewPopularKeywords.adapter = mostPopularKeywords
+
+                val popularCategories =
+                    CrateSummaryRecyclerViewAdapter(it.mostRecentlyDownloaded)
+                recyclerPopularCategories.layoutManager = LinearLayoutManager(context)
+                recyclerPopularCategories.adapter = popularCategories
+            })
+        }
     }
-
-//    fun bindUI() = launch {
-//        val crateSummary = viewModel.crateSummary.await()
-//        crateSummary.observe(viewLifecycleOwner, Observer {
-//            initRV(it)
-//        })
-//    }
-//
-//    fun initRV(crateSummary: CrateSummary) {
-//        view.recyclerViewCrates.layoutManager = LinearLayoutManager(context)
-//    }
-
 }
