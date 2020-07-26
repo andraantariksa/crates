@@ -16,6 +16,6 @@ class SummaryViewModel(
     private val crateSummaryRepository: CrateSummaryRepository
 ) : ViewModel() {
     val crateSummary by lazyDeffered {
-        crateSummaryRepository.getSummary()
+        crateSummaryRepository.getCrateSummary()
     }
 }

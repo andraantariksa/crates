@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import io.github.andraantariksa.cratesio.CrateDetailActivity
 import io.github.andraantariksa.cratesio.R
 import io.github.andraantariksa.cratesio.data.api.model.CrateSummary.Summary
-import kotlinx.android.synthetic.main.summary_section_item.view.*
+import kotlinx.android.synthetic.main.item_crate_summary.view.*
 
 class CrateSummaryRecyclerViewAdapter<T : Summary>(
     private val crateSummarySection: List<T>
@@ -32,7 +31,7 @@ class CrateSummaryRecyclerViewAdapter<T : Summary>(
         val context: Context = parent.context
         return ViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.summary_section_item,
+                R.layout.item_crate_summary,
                 parent,
                 false
             )

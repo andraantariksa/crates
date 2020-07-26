@@ -11,11 +11,11 @@ import io.github.andraantariksa.cratesio.R
 import io.github.andraantariksa.cratesio.data.api.ConnectivityInterceptorImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class CrateDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_crate)
 
         val navController = Navigation.findNavController(this, R.id.fragmentMain)
         setupBottomNavigation(navController)
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController  = Navigation.findNavController(this, R.id.fragmentMain)
+        val navController = Navigation.findNavController(this, R.id.fragmentMain)
         val navigated = NavigationUI.onNavDestinationSelected(item, navController)
         return super.onOptionsItemSelected(item) || navigated
     }

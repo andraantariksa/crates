@@ -9,18 +9,10 @@
         android:id="@+id/menuItemDiscover"
         android:name="io.github.andraantariksa.cratesio.ui.SummaryFragment"
         android:label="summary_fragment"
-        tools:layout="@layout/summary_fragment" >
-        <action
-            android:id="@+id/action_summaryFragment_to_moreFragment"
-            app:destination="@id/menuItemMore" />
-    </fragment>
+        tools:layout="@layout/fragment_summary" />
     <fragment
         android:id="@+id/menuItemMore"
         android:name="io.github.andraantariksa.cratesio.ui.MoreFragment"
         android:label="fragment_more"
-        tools:layout="@layout/fragment_more" >
-        <action
-            android:id="@+id/action_moreFragment_to_summaryFragment"
-            app:destination="@id/menuItemDiscover" />
-    </fragment>
+        tools:layout="@layout/fragment_more" />
 </navigation>

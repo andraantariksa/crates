@@ -8,12 +8,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
+const val API_BASE_URL: String = "https://crates.io/api/v1/"
+
 interface CratesioAPIService {
     @GET("summary")
     suspend fun getSummary(): CrateSummary
 
     @GET("value/crates/{cratesId}")
-    suspend fun getCratesDetail(@Path("cratesId") cratesId : String): CratesDetail
+    suspend fun getCratesDetail(@Path("cratesId") cratesId: Int): CratesDetail
 
     companion object {
         operator fun invoke(

@@ -1,43 +1,34 @@
 package io.github.andraantariksa.cratesio.data.repository
 
 import androidx.lifecycle.LiveData
-import io.github.andraantariksa.cratesio.data.api.datasource.CrateSummaryDatasource
+import io.github.andraantariksa.cratesio.data.api.datasource.CratesDatasource
 import io.github.andraantariksa.cratesio.data.api.model.CrateSummary.CrateSummary
+import io.github.andraantariksa.cratesio.data.api.model.CratesDetail.CratesDetail
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class CrateSummaryRepositoryImpl(
 //    private val crateSummaryDao: CrateSummaryDao,
-    private val crateSummaryDatasource: CrateSummaryDatasource
+    private val cratesDatasource: CratesDatasource
 ) : CrateSummaryRepository {
-
-//    private lateinit var crateSummary: CrateSummary
-
-//    init {
-//        crateSummaryDatasource.crateSummary.observeForever {
-//            crateSummary = it
-//        }
-//    }
-
-    override suspend fun getSummary(): LiveData<CrateSummary> {
+    override suspend fun getCrateSummary(): LiveData<CrateSummary> {
         return withContext(Dispatchers.IO) {
             initSummaryData()
-//            return@withContext crateSummaryDao.getCrateSummary()
-            return@withContext crateSummaryDatasource.crateSummary
+            return@withContext cratesDatasource.crateSummary
         }
     }
-
-//    private fun persistCrateSummary(crateSummary: CrateSummary) {
-//        GlobalScope.launch(Dispatchers.IO) {
-//            crateSummaryDao.upsert(crateSummary)
-//        }
-//    }
 
     private suspend fun initSummaryData() {
         fetchSummaryData()
     }
 
     private suspend fun fetchSummaryData() {
-        crateSummaryDatasource.getSummary()
+        cratesDatasource.getCrateSummary()
+    }
+
+    override suspend fun getCratesDetail(cratesId: Int): LiveData<CratesDetail> {
+        return withContext(Dispatchers.IO) {
+            return@withContext cratesDatasource.getCratesDetail(cratesId)
+        }
     }
 }

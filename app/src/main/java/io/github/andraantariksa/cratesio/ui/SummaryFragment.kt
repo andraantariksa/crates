@@ -10,9 +10,9 @@ import androidx.viewpager.widget.ViewPager
 import io.github.andraantariksa.cratesio.R
 import io.github.andraantariksa.cratesio.data.api.ConnectivityInterceptorImpl
 import io.github.andraantariksa.cratesio.data.api.CratesioAPIService
-import io.github.andraantariksa.cratesio.data.api.datasource.CrateSummaryDatasourceImpl
+import io.github.andraantariksa.cratesio.data.api.datasource.CratesDatasourceImpl
 import io.github.andraantariksa.cratesio.data.repository.CrateSummaryRepositoryImpl
-import kotlinx.android.synthetic.main.summary_fragment.*
+import kotlinx.android.synthetic.main.fragment_summary.*
 import kotlinx.coroutines.launch
 
 
@@ -28,14 +28,14 @@ class SummaryFragment : ScopedFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.summary_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_summary, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         val apiService = CratesioAPIService(ConnectivityInterceptorImpl(this.context!!))
-        val crateSummaryDataSource = CrateSummaryDatasourceImpl(apiService)
+        val crateSummaryDataSource = CratesDatasourceImpl(apiService)
         val crateSummaryRepository = CrateSummaryRepositoryImpl(crateSummaryDataSource)
 
         viewModel = SummaryViewModel(crateSummaryRepository)
