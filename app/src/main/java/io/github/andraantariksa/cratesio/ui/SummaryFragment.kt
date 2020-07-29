@@ -5,24 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
 import io.github.andraantariksa.cratesio.R
-import io.github.andraantariksa.cratesio.data.api.ConnectivityInterceptorImpl
-import io.github.andraantariksa.cratesio.data.api.CratesioAPIService
-import io.github.andraantariksa.cratesio.data.api.datasource.CratesDatasourceImpl
-import io.github.andraantariksa.cratesio.data.repository.CrateSummaryRepositoryImpl
+import io.github.andraantariksa.cratesio.utils.InjectorUtils
 import kotlinx.android.synthetic.main.fragment_summary.*
 import kotlinx.coroutines.launch
 
 
 class SummaryFragment : ScopedFragment() {
-    companion object {
-        fun newInstance() = SummaryFragment()
-    }
-
-    private lateinit var viewModel: SummaryViewModel
-    private lateinit var sliderViewPager: ViewPager
+    private lateinit var viewModelFactory: CratesViewModelFactory
+    private lateinit var viewModel: CratesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,11 +27,10 @@ class SummaryFragment : ScopedFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val apiService = CratesioAPIService(ConnectivityInterceptorImpl(this.context!!))
-        val crateSummaryDataSource = CratesDatasourceImpl(apiService)
-        val crateSummaryRepository = CrateSummaryRepositoryImpl(crateSummaryDataSource)
+        viewModelFactory = InjectorUtils.provideCratesViewModelFactory(context!!)
 
-        viewModel = SummaryViewModel(crateSummaryRepository)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(CratesViewModel::class.java)
 
         launch {
             val crateSummary = viewModel.crateSummary.await()

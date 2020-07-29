@@ -17,9 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navController = Navigation.findNavController(this, R.id.fragmentMain)
-        setupBottomNavigation(navController)
-
         val connectivity = ConnectivityInterceptorImpl(this)
         if (!connectivity.isOnline()) {
             Snackbar.make(
@@ -28,6 +25,9 @@ class MainActivity : AppCompatActivity() {
                 Snackbar.LENGTH_INDEFINITE
             ).show()
         }
+
+        val navController = Navigation.findNavController(this, R.id.fragmentMain)
+        setupBottomNavigation(navController)
     }
 
     private fun setupBottomNavigation(navController: NavController) {

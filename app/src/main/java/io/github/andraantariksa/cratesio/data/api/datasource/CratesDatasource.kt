@@ -5,8 +5,9 @@ import io.github.andraantariksa.cratesio.data.api.model.CrateSummary.CrateSummar
 import io.github.andraantariksa.cratesio.data.api.model.CratesDetail.CratesDetail
 
 interface CratesDatasource {
-    val crateSummary: LiveData<CrateSummary>
+    val cratesSummary: LiveData<CrateSummary>
+    val cratesDetail: LiveData<CratesDetail>
 
-    suspend fun getCrateSummary()
-    suspend fun getCratesDetail(cratesId: Int): LiveData<CratesDetail>
+    suspend fun fetchCrateSummary()
+    suspend fun fetchCratesDetail(cratesId: Int)
 }

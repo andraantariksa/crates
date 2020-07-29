@@ -1,7 +1,7 @@
 package io.github.andraantariksa.cratesio.ui
 
 import androidx.lifecycle.ViewModel
-import io.github.andraantariksa.cratesio.data.repository.CrateSummaryRepository
+import io.github.andraantariksa.cratesio.data.repository.CratesRepository
 import kotlinx.coroutines.*
 
 fun <T> lazyDeffered(block: suspend CoroutineScope.() -> T): Lazy<Deferred<T>> {
@@ -12,10 +12,10 @@ fun <T> lazyDeffered(block: suspend CoroutineScope.() -> T): Lazy<Deferred<T>> {
     }
 }
 
-class SummaryViewModel(
-    private val crateSummaryRepository: CrateSummaryRepository
+class CratesViewModel(
+    private val cratesRepository: CratesRepository
 ) : ViewModel() {
     val crateSummary by lazyDeffered {
-        crateSummaryRepository.getCrateSummary()
+        cratesRepository.getCrateSummary()
     }
 }

@@ -12,21 +12,26 @@ class CratesDatasourceImpl(
     private val cratesioAPIService: CratesioAPIService
 ) : CratesDatasource {
 
-    private val cratesummaryMut = MutableLiveData<CrateSummary>()
-    override val crateSummary: LiveData<CrateSummary>
-        get() = cratesummaryMut
+    private val cratesSummaryMut = MutableLiveData<CrateSummary>()
+    override val cratesSummary: LiveData<CrateSummary>
+        get() = cratesSummaryMut
 
-    override suspend fun getCrateSummary() {
+    override suspend fun fetchCrateSummary() {
         try {
             val fetchedCrateSummary = cratesioAPIService
                 .getSummary()
-            cratesummaryMut.postValue(fetchedCrateSummary)
+            cratesSummaryMut.postValue(fetchedCrateSummary)
         } catch (ex: NoConnectivityException) {
             Log.d("Connectivity", "No connection", ex)
         }
     }
 
-    override suspend fun getCratesDetail(cratesId: Int): LiveData<CratesDetail> {
+
+    private val cratesDetailMut = MutableLiveData<CratesDetail>()
+    override val cratesDetail: LiveData<CratesDetail>
+        get() = cratesDetailMut
+
+    override suspend fun fetchCratesDetail(cratesId: Int) {
         val cratesDetailMut = MutableLiveData<CratesDetail>()
         try {
             val fetchedCratesDetail = cratesioAPIService
@@ -35,6 +40,5 @@ class CratesDatasourceImpl(
         } catch (ex: NoConnectivityException) {
             Log.d("Connectivity", "No connection", ex)
         }
-        return cratesDetailMut
     }
 }
