@@ -2,6 +2,7 @@ package io.github.andraantariksa.cratesio.data.api.model.CrateSummary
 
 
 import com.google.gson.annotations.SerializedName
+import io.github.andraantariksa.cratesio.ui.ActionType
 
 data class PopularKeyword(
     @SerializedName("crates_cnt")
@@ -18,4 +19,10 @@ data class PopularKeyword(
 
     override val subtitle: String
         get() = "${cratesCnt} crates"
+
+    override val actionTargetName: String
+        get() = id
+
+    override val actionType: ActionType
+        get() = ActionType.Crates
 }

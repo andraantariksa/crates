@@ -22,6 +22,8 @@ class CrateSummaryRecyclerViewAdapter<T : Summary>(
         val crateInformation = crateSummarySection[position]
         holder.textViewCrateTitle.text = crateInformation.title
         holder.textViewCrateMaxVersion.text = crateInformation.subtitle
+        holder.actionType = crateInformation.actionType
+        holder.actionTargetName = crateInformation.actionTargetName
     }
 
     override fun onCreateViewHolder(
@@ -30,11 +32,13 @@ class CrateSummaryRecyclerViewAdapter<T : Summary>(
     ): ViewHolder {
         val context: Context = parent.context
         return ViewHolder(
-            LayoutInflater.from(context).inflate(
-                R.layout.item_crate_summary,
-                parent,
-                false
-            )
+            LayoutInflater
+                .from(context)
+                .inflate(
+                    R.layout.item_crate_summary,
+                    parent,
+                    false
+                )
         )
     }
 
@@ -44,13 +48,26 @@ class CrateSummaryRecyclerViewAdapter<T : Summary>(
         val textViewCrateTitle: TextView = view.textViewCrateTitle
         val textViewCrateMaxVersion: TextView = view.textViewCrateSubtitle
 
+        lateinit var actionType: ActionType
+        lateinit var actionTargetName: String
+
         init {
             view.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-            val intent = Intent(view.context, CrateDetailActivity::class.java)
-            view.context.startActivity(intent)
+            val intent = Intent()
+            when (actionType) {
+                ActionType.Crates -> {
+                    intent.setClass(view.context, CrateDetailActivity::class.java)
+                    intent.putExtra("actionType", actionType)
+                    intent.putExtra("actionTargetName", actionTargetName)
+                    view.context.startActivity(intent)
+                }
+                else -> {
+                    throw NotImplementedError()
+                }
+            }
         }
     }
 }

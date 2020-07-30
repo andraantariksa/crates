@@ -2,6 +2,7 @@ package io.github.andraantariksa.cratesio.data.api.model.CrateSummary
 
 
 import com.google.gson.annotations.SerializedName
+import io.github.andraantariksa.cratesio.ui.ActionType
 
 data class NewCrate(
     @SerializedName("badges")
@@ -46,4 +47,10 @@ data class NewCrate(
 
     override val subtitle: String
         get() = maxVersion
+
+    override val actionTargetName: String
+        get() = id
+
+    override val actionType: ActionType
+        get() = ActionType.Crates
 }

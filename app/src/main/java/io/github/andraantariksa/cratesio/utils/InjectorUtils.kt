@@ -11,7 +11,7 @@ import io.github.andraantariksa.cratesio.ui.CratesViewModelFactory
 object InjectorUtils {
     fun provideCratesViewModelFactory(context: Context): CratesViewModelFactory {
         val cratesioAPIService = CratesioAPIService(ConnectivityInterceptorImpl(context))
-        val cratesDatabase = CratesDatabase.invoke(context)
+        val cratesDatabase = CratesDatabase(context)
         val cratesRepository = CratesRepositoryImpl.getInstance(
             cratesDatabase.crateSummary(),
             CratesDatasourceImpl(cratesioAPIService)

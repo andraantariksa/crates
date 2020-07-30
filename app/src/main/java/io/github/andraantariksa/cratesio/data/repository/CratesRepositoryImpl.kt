@@ -33,12 +33,14 @@ class CratesRepositoryImpl(
                     instance = it
                 }
             }
+
+        private var cratesSummaryLast: CrateSummary? = null
     }
 
     init {
         cratesDatasource.apply {
             cratesSummary.observeForever { newCratesSummary ->
-                persistFetchedCratesSummaryWeather(newCratesSummary)
+                persistFetchedCratesSummary(newCratesSummary)
             }
         }
     }
@@ -46,8 +48,14 @@ class CratesRepositoryImpl(
     override suspend fun getCrateSummary(): LiveData<CrateSummary> {
         return withContext(Dispatchers.IO) {
             getCratesSummaryData()
-            return@withContext cratesSummaryDao.getLastCrateSummary()!!.getCrateSummaryLiveData()
+            val cratesSummary = cratesSummaryDao.getCrateSummaryLast()!!.getCrateSummaryLiveData()
+            cratesSummaryLast = cratesSummary.value
+            return@withContext cratesSummary
         }
+    }
+
+    override fun getCratesSummaryLast(): CrateSummary? {
+        return cratesSummaryLast
     }
 
     private suspend fun getCratesSummaryData() {
@@ -65,7 +73,7 @@ class CratesRepositoryImpl(
         }
     }
 
-    private fun persistFetchedCratesSummaryWeather(cratesSummary: CrateSummary) {
+    private fun persistFetchedCratesSummary(cratesSummary: CrateSummary) {
         fun deleteOldCratesSummaryData() {
             val today = LocalDateTime.now()
             cratesSummaryDao.deleteCrateSummary(today)
@@ -83,7 +91,7 @@ class CratesRepositoryImpl(
     }
 
     private suspend fun fetchCratesSummary() {
-        val lastCratesSummaryDataTime = cratesSummaryDao.getLastCrateSummary()
+        val lastCratesSummaryDataTime = cratesSummaryDao.getCrateSummaryLast()
         if (lastCratesSummaryDataTime == null ||
             isFetchCratesSummaryNeeded(
                 Converter.stringToLocalDateTime(lastCratesSummaryDataTime.date)!!

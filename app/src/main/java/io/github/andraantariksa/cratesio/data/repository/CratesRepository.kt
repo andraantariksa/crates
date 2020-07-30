@@ -7,4 +7,5 @@ import io.github.andraantariksa.cratesio.data.api.model.CratesDetail.CratesDetai
 interface CratesRepository {
     suspend fun getCrateSummary(): LiveData<CrateSummary>
     suspend fun getCratesDetail(cratesId: Int): LiveData<CratesDetail>
+    fun getCratesSummaryLast(): CrateSummary?
 }

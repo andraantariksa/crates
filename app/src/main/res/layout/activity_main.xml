@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentMain"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -32,13 +32,12 @@
             android:id="@+id/coordinatorLayoutSnackbar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"></androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:layout_weight="1" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationViewMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:background="@color/colorPrimary"
             app:itemTextColor="#FFFFFF"
             app:menu="@menu/main_bottom_navigation" />

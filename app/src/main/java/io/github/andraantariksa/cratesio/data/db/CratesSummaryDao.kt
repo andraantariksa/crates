@@ -16,5 +16,5 @@ interface CratesSummaryDao {
     fun deleteCrateSummary(firstDateToKeep: LocalDateTime)
 
     @Query("SELECT * FROM crates_summary ORDER BY date DESC LIMIT 1")
-    fun getLastCrateSummary(): CratesSummaryEntry?
+    fun getCrateSummaryLast(): CratesSummaryEntry?
 }
