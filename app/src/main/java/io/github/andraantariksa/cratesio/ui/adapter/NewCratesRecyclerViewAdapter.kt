@@ -1,4 +1,4 @@
-package io.github.andraantariksa.cratesio.ui.recyclerview
+package io.github.andraantariksa.cratesio.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import io.github.andraantariksa.cratesio.R
-import io.github.andraantariksa.cratesio.data.viewmodel.CratesSummaryViewModel
+import io.github.andraantariksa.cratesio.ui.viewmodel.CratesSummaryViewModel
 import io.github.andraantariksa.cratesio.databinding.CratesSummaryItemBinding
 
 class NewCratesRecyclerViewAdapter(
@@ -32,13 +32,13 @@ class NewCratesRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return cratesSummaryViewModel.cratesSummary.value?.new_crates?.size ?: 0
+        return cratesSummaryViewModel.cratesSummary.value?.newCrates?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = cratesSummaryViewModel.cratesSummary.value!!.new_crates[position]
+        val data = cratesSummaryViewModel.cratesSummary.value!!.newCrates[position]
         holder.title.text = data.name
-        holder.subtitle.text = "v${data.versions}"
+        holder.subtitle.text = "v${data.maxVersion}"
     }
 
     private fun setupNewCratesUpdate(lifecycleOwner: LifecycleOwner) {

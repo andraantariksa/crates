@@ -5,12 +5,13 @@ import android.net.ConnectivityManager
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
+import javax.inject.Inject
 
 // TODO move out this class
 
 class NoNetworkException : IOException()
 
-class ConnectivityInterceptor(private val context: Context) : Interceptor {
+class ConnectivityInterceptor constructor(private val context: Context) : Interceptor {
     private fun isConnected(): Boolean {
         val connectivityManager = context.applicationContext
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

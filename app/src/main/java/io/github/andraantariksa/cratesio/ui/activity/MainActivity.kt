@@ -1,11 +1,13 @@
-package io.github.andraantariksa.cratesio.ui
+package io.github.andraantariksa.cratesio.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.andraantariksa.cratesio.R
 import io.github.andraantariksa.cratesio.databinding.ActivityMainBinding
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -16,19 +18,10 @@ class MainActivity : AppCompatActivity() {
             R.layout.activity_main
         )
 
-        setupFragmentNavigation()
+        setupView()
     }
 
-    private fun setupFragmentNavigation() {
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
-            MainFragmentNavigation.findMenuItem(it.itemId)?.apply {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment, this.fragment)
-                    .commit()
-                return@setOnNavigationItemSelectedListener true
-            }
-            false
-        }
+    private fun setupView() {
+
     }
 }

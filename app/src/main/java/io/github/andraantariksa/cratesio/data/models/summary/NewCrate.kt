@@ -1,25 +1,47 @@
 package io.github.andraantariksa.cratesio.data.models.summary
 
-import io.github.andraantariksa.cratesio.data.models.common.Links
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class NewCrate(
-    val badges: Any,
-    val categories: Any,
-    val created_at: String,
+    @Json(name = "badges")
+    val badges: Any?,
+    @Json(name = "categories")
+    val categories: Any?,
+    @Json(name = "created_at")
+    val createdAt: String,
+    @Json(name = "description")
     val description: String,
-    val documentation: Any,
+    @Json(name = "documentation")
+    val documentation: Any?,
+    @Json(name = "downloads")
     val downloads: Int,
-    val exact_match: Boolean,
-    val homepage: Any,
+    @Json(name = "exact_match")
+    val exactMatch: Boolean,
+    @Json(name = "homepage")
+    val homepage: String?,
+    @Json(name = "id")
     val id: String,
-    val keywords: Any,
+    @Json(name = "keywords")
+    val keywords: Any?,
+    @Json(name = "links")
     val links: Links,
-    val max_stable_version: String,
-    val max_version: String,
+    @Json(name = "max_stable_version")
+    val maxStableVersion: String?,
+    @Json(name = "max_version")
+    val maxVersion: String,
+    @Json(name = "name")
     val name: String,
-    val newest_version: String,
-    val recent_downloads: Int,
-    val repository: String,
-    val updated_at: String,
-    val versions: Any
+    @Json(name = "newest_version")
+    val newestVersion: String,
+    @Json(name = "recent_downloads")
+    val recentDownloads: Int?,
+    @Json(name = "repository")
+    val repository: String?,
+    @Json(name = "updated_at")
+    val updatedAt: String,
+    @Json(name = "versions")
+    val versions: Any?
 )

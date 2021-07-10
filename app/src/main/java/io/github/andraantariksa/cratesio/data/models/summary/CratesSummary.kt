@@ -1,12 +1,25 @@
 package io.github.andraantariksa.cratesio.data.models.summary
 
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class CratesSummary(
-    val just_updated: List<JustUpdated>,
-    val most_downloaded: List<MostDownloaded>,
-    val most_recently_downloaded: List<MostRecentlyDownloaded>,
-    val new_crates: List<NewCrate>,
-    val num_crates: Int,
-    val num_downloads: Long,
-    val popular_categories: List<PopularCategory>,
-    val popular_keywords: List<PopularKeyword>
+    @Json(name = "just_updated")
+    val justUpdated: List<JustUpdated>,
+    @Json(name = "most_downloaded")
+    val mostDownloaded: List<MostDownloaded>,
+    @Json(name = "most_recently_downloaded")
+    val mostRecentlyDownloaded: List<MostRecentlyDownloaded>,
+    @Json(name = "new_crates")
+    val newCrates: List<NewCrate>,
+    @Json(name = "num_crates")
+    val numCrates: Int,
+    @Json(name = "num_downloads")
+    val numDownloads: Long,
+    @Json(name = "popular_categories")
+    val popularCategories: List<PopularCategory>,
+    @Json(name = "popular_keywords")
+    val popularKeywords: List<PopularKeyword>
 )

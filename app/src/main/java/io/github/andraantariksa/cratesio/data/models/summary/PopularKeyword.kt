@@ -1,8 +1,17 @@
 package io.github.andraantariksa.cratesio.data.models.summary
 
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class PopularKeyword(
-    val crates_cnt: Int,
-    val created_at: String,
+    @Json(name = "crates_cnt")
+    val cratesCnt: Int,
+    @Json(name = "created_at")
+    val createdAt: String,
+    @Json(name = "id")
     val id: String,
+    @Json(name = "keyword")
     val keyword: String
 )
