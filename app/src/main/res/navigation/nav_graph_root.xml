@@ -5,5 +5,5 @@
     app:startDestination="@id/fragmentMain">
     <fragment
         android:id="@+id/fragmentMain"
-        android:name="io.github.andraantariksa.cratesio.ui.fragment.MainFragment" />
+        android:name="io.github.andraantariksa.crates.ui.fragment.MainFragment" />
 </navigation>
