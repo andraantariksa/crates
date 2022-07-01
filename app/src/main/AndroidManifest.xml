@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Crates">
         <activity
-            android:name="io.github.andraantariksa.crates.ui.main.MainActivity"
+            android:name="io.github.andraantariksa.crates.feature_crates.ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,9 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="io.github.andraantariksa.crates.ui.sign_in.SignInActivity" />
-        <activity android:name="io.github.andraantariksa.crates.ui.settings.SettingsActivity" />
-        <activity android:name="io.github.andraantariksa.crates.ui.crate.CrateActivity" />
+        <activity android:name="io.github.andraantariksa.crates.feature_crates.ui.sign_in.SignInActivity" />
+        <activity android:name="io.github.andraantariksa.crates.feature_crates.ui.settings.SettingsActivity" />
+        <activity android:name="io.github.andraantariksa.crates.feature_crates.ui.crate.CrateActivity" />
     </application>
 
 </manifest>
