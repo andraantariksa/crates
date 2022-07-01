@@ -7,6 +7,7 @@ import io.github.andraantariksa.crates.feature_crates.data.source.local.CratesIo
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.CratesIoDataSourceRemote
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.summary.CratesSummary
 import kotlinx.coroutines.runBlocking
+import okio.IOException
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,10 +16,9 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.robolectric.RobolectricTestRunner
-import java.net.SocketTimeoutException
 
 @RunWith(RobolectricTestRunner::class)
-class CratesIoRepositoryTest {
+class CratesIoRepositoryImplTest {
     private lateinit var cratesIoDatasourceRemote: CratesIoDataSourceRemote
     private lateinit var cratesIoDatasourceLocal: CratesIoDataSourceLocal
     private lateinit var cratesIoRepositoryImpl: CratesIoRepositoryImpl
@@ -36,12 +36,12 @@ class CratesIoRepositoryTest {
 
     @Test
     fun `getCratesSummary should forward it to remote data source when online`() = runBlocking {
-        whenever(cratesIoDatasourceRemote.getCratesSummary()).thenReturn(CratesSummary.example)
+        whenever(cratesIoDatasourceRemote.getCratesSummary()).thenReturn(CratesSummary.EXAMPLE)
 
         val result = cratesIoRepositoryImpl.getCratesSummary()
 
         verify(cratesIoDatasourceRemote, times(1)).getCratesSummary()
-        assertThat(result).isEqualTo(Result.success(CratesSummary.example))
+        assertThat(result).isEqualTo(Result.success(CratesSummary.EXAMPLE))
     }
 
     @Test
@@ -60,13 +60,13 @@ class CratesIoRepositoryTest {
     @Test
     fun `getCratesSummary should return SocketTimeoutException when network failed or cached data`() =
         runBlocking {
-            whenever(cratesIoDatasourceRemote.getCratesSummary()).thenThrow(SocketTimeoutException())
+            whenever(cratesIoDatasourceRemote.getCratesSummary()).thenAnswer { throw IOException() }
             whenever(cratesIoDatasourceLocal.getCratesSummary()).thenThrow(NoCachedDataException())
 
             val result = cratesIoRepositoryImpl.getCratesSummary()
 
             verify(cratesIoDatasourceRemote, times(1)).getCratesSummary()
             verify(cratesIoDatasourceLocal, times(1)).getCratesSummary()
-            assertThat(result).isEqualTo(Result.failure<CratesSummary>(SocketTimeoutException()))
+            assertThat(result.exceptionOrNull()).isInstanceOf(IOException::class.java)
         }
 }

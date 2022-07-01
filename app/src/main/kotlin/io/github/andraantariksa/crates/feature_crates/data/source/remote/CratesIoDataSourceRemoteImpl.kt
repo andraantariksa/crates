@@ -8,11 +8,11 @@ import javax.inject.Inject
 
 class CratesIoDataSourceRemoteImpl
 @Inject constructor(
-    private val cratesioAPIService: CratesIoAPIService
+    private val cratesIoAPIService: CratesIoAPIService
 ) : CratesIoDataSourceRemote {
-    override suspend fun getCratesSummary(): CratesSummary = cratesioAPIService.getSummary()
+    override suspend fun getCratesSummary(): CratesSummary = cratesIoAPIService.getSummary()
 
-    override suspend fun getCrateDetails(id: Int): CrateDetail = cratesioAPIService.getCratesDetail(id)
+    override suspend fun getCrateDetail(id: Int): CrateDetail = cratesIoAPIService.getCrateDetail(id)
 
-    override suspend fun getBeginAuthData(): AuthBegin = cratesioAPIService.getBeginAuthData()
+    override suspend fun getBeginAuthData(): AuthBegin = cratesIoAPIService.getBeginAuthData()
 }

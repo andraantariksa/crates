@@ -44,4 +44,28 @@ data class Crate(
     val updatedAt: String,
     @Json(name = "versions")
     val versions: List<Int>
-)
+) {
+    companion object {
+        val EXAMPLE = Crate(
+            badges = listOf(),
+            categories = listOf(),
+            keywords = listOf(),
+            id = "420",
+            name = "",
+            newestVersion = "",
+            recentDownloads = 0,
+            repository = 0,
+            updatedAt = "",
+            versions = listOf(),
+            maxVersion = "",
+            createdAt = "",
+            description = "",
+            documentation = "",
+            downloads = 1,
+            exactMatch = false,
+            homepage = "",
+            links = Links.EXAMPLE,
+            maxStableVersion = ""
+        )
+    }
+}

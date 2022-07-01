@@ -54,6 +54,7 @@ dependencies {
 
     implementation(Deps.SquareUp.Retrofit.Retrofit)
     implementation(Deps.SquareUp.Retrofit.ConverterMoshi)
+    implementation(Deps.SquareUp.Retrofit.ConverterScalars)
     implementation(Deps.SquareUp.Moshi.Moshi)
     kapt(Deps.SquareUp.Moshi.MoshiCodegen)
     implementation(Deps.AndroidX.Hilt.HiltNavigationCompose)

@@ -76,7 +76,7 @@ fun SignInScreen(signInViewModel: SignInViewModel = hiltViewModel()) {
                 LaunchedEffect(currentUrl) {
                     if (currentUrl?.startsWith("https://crates.io/github-redirect.html?") == true) {
                         val code = currentUrl.substringAfter("code=").substringBefore("&")
-                        val state = currentUrl.substringAfter("state")
+                        val state = currentUrl.substringAfter("state=")
                         signInViewModel.a(code, state)
                     }
                 }

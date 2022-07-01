@@ -18,4 +18,15 @@ data class Links(
     val versionDownloads: String,
     @Json(name = "versions")
     val versions: Any
-)
+) {
+    companion object {
+        val EXAMPLE = Links(
+            owners = "",
+            ownerTeam = "",
+            ownerUser = "",
+            reverseDependencies = "",
+            versionDownloads = "",
+            versions = ""
+        )
+    }
+}

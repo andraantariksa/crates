@@ -39,7 +39,7 @@ class CratesIoRepositoryImpl @Inject constructor(
 
     override suspend fun getCrateDetails(id: Int): Result<CrateDetail> {
         var result = try {
-            Result.success(cratesIoDatasourceRemote.getCrateDetails(id))
+            Result.success(cratesIoDatasourceRemote.getCrateDetail(id))
         } catch (exception: NoNetworkException) {
             Result.failure(exception)
         } catch (exception: Exception) {
@@ -48,7 +48,7 @@ class CratesIoRepositoryImpl @Inject constructor(
 
         if (result.isFailure) {
             try {
-                result = Result.success(cratesIoDatasourceRemote.getCrateDetails(id))
+                result = Result.success(cratesIoDatasourceRemote.getCrateDetail(id))
             } catch (exception: NoCachedDataException) {
 //                Its better to just show network failure when there is no cached data
 //                Result.failure(exception)

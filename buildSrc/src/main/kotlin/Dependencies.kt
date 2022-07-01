@@ -128,6 +128,7 @@ object Deps {
             const val Version = "2.9.0"
             const val Retrofit = "com.squareup.retrofit2:retrofit:$Version"
             const val ConverterMoshi = "com.squareup.retrofit2:converter-moshi:$Version"
+            const val ConverterScalars = "com.squareup.retrofit2:converter-scalars:$Version"
         }
 
         object Moshi {

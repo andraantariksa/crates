@@ -32,7 +32,7 @@ data class CratesSummary(
     popularKeywords = popularKeywords
 ) {
     companion object {
-        val example = CratesSummary(
+        val EXAMPLE = CratesSummary(
             numCrates = 123,
             numDownloads = 123,
             justUpdatedCrate = listOf(),

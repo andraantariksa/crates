@@ -11,7 +11,7 @@ interface CratesIoAPIService {
     suspend fun getSummary(): CratesSummary
 
     @GET("v1/crates/{cratesId}")
-    suspend fun getCratesDetail(@Path("cratesId") cratesId: Int): CrateDetail
+    suspend fun getCrateDetail(@Path("cratesId") cratesId: Int): CrateDetail
 
     @GET("v1/crates?page={page}&per_page={perPage}&q={query}")
     suspend fun searchCrate(

@@ -6,6 +6,6 @@ import io.github.andraantariksa.crates.feature_crates.domain.model.summary.Crate
 
 interface CratesIoDataSourceRemote {
     suspend fun getCratesSummary(): CratesSummary
-    suspend fun getCrateDetails(id: Int): CrateDetail
+    suspend fun getCrateDetail(id: Int): CrateDetail
     suspend fun getBeginAuthData(): AuthBegin
 }

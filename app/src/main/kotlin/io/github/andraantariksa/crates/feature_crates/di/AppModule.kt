@@ -1,6 +1,7 @@
 package io.github.andraantariksa.crates.feature_crates.di
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -21,6 +22,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.net.CookieManager
 import javax.inject.Singleton
 
@@ -33,7 +35,13 @@ object AppModule {
     fun provideCratesioAPIService(@ApplicationContext context: Context): CratesIoAPIService {
         val okHttpClient = OkHttpClient
             .Builder()
-            .addInterceptor(HttpLoggingInterceptor())
+            .addInterceptor(
+                HttpLoggingInterceptor { message ->
+                    Log.d("HTTPClient", message)
+                }.apply {
+                    setLevel(HttpLoggingInterceptor.Level.BODY)
+                }
+            )
             .addInterceptor(ConnectivityInterceptor(context))
             .cookieJar(JavaNetCookieJar(CookieManager()))
             .build()
@@ -42,6 +50,7 @@ object AppModule {
             .Builder()
             .client(okHttpClient)
             .baseUrl("https://crates.io/api/")
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create(CratesIoAPIService::class.java)

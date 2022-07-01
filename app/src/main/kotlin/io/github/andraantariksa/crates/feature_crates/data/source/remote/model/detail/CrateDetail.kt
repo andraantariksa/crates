@@ -14,4 +14,13 @@ data class CrateDetail(
     val keywords: List<Any>,
     @Json(name = "versions")
     val versions: List<Version>
-)
+) {
+    companion object {
+        val EXAMPLE = CrateDetail(
+            categories = listOf(),
+            crate = Crate.EXAMPLE,
+            keywords = listOf(),
+            versions = listOf()
+        )
+    }
+}
