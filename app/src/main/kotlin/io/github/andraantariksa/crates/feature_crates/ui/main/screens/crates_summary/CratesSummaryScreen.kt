@@ -6,8 +6,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
+import io.github.andraantariksa.crates.R
 import io.github.andraantariksa.crates.feature_crates.ui.common.components.CrateOverview
 import io.github.andraantariksa.crates.feature_crates.ui.main.screens.UIEvent
 import kotlinx.coroutines.flow.collectLatest
@@ -67,8 +72,9 @@ fun CratesSummaryScreen(
             }
         }
         CratesSummaryState.Loading -> {
-            Column() {
-
+            Column {
+                val loadingComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
+                LottieAnimation(composition = loadingComposition)
             }
         }
     }

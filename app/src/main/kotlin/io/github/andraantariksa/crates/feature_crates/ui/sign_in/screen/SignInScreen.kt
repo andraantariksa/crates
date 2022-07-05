@@ -1,5 +1,6 @@
 package io.github.andraantariksa.crates.feature_crates.ui.sign_in.screen
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,10 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,7 +23,6 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 import io.github.andraantariksa.crates.R
-import io.github.andraantariksa.crates.feature_crates.util.getActivity
 
 @Composable
 fun SignInScreen(signInViewModel: SignInViewModel = hiltViewModel()) {
@@ -33,6 +30,7 @@ fun SignInScreen(signInViewModel: SignInViewModel = hiltViewModel()) {
         color = MaterialTheme.colors.background
     ) {
         val context = LocalContext.current
+        val activity = remember(context) { context as? Activity }
 
         LaunchedEffect(Unit) {
             signInViewModel.getSignInOauthUrl()
@@ -53,7 +51,7 @@ fun SignInScreen(signInViewModel: SignInViewModel = hiltViewModel()) {
             ) {
                 IconButton(
                     onClick = {
-                        context.getActivity()?.finish()
+                        activity?.finish()
                     }
                 ) {
                     Icon(
@@ -77,7 +75,8 @@ fun SignInScreen(signInViewModel: SignInViewModel = hiltViewModel()) {
                     if (currentUrl?.startsWith("https://crates.io/github-redirect.html?") == true) {
                         val code = currentUrl.substringAfter("code=").substringBefore("&")
                         val state = currentUrl.substringAfter("state=")
-                        signInViewModel.a(code, state)
+                        signInViewModel.authorizeOauth(code, state)
+                        activity?.finish()
                     }
                 }
 

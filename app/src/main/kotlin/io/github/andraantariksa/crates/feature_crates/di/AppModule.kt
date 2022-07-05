@@ -8,22 +8,27 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.github.andraantariksa.crates.feature_crates.data.repository.CookieRepositoryImpl
 import io.github.andraantariksa.crates.feature_crates.data.repository.CratesIoRepositoryImpl
+import io.github.andraantariksa.crates.feature_crates.data.repository.UserRepositoryImpl
 import io.github.andraantariksa.crates.feature_crates.data.source.local.CratesIoDataSourceLocal
 import io.github.andraantariksa.crates.feature_crates.data.source.local.CratesIoDataSourceLocalImpl
+import io.github.andraantariksa.crates.feature_crates.data.source.local.UserDataSourceLocal
+import io.github.andraantariksa.crates.feature_crates.data.source.local.UserDataSourceLocalImpl
 import io.github.andraantariksa.crates.feature_crates.data.source.local.database.CratesDatabase
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.CratesIoDataSourceRemote
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.CratesIoDataSourceRemoteImpl
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.service.ConnectivityInterceptor
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.service.CratesIoAPIService
+import io.github.andraantariksa.crates.feature_crates.domain.repository.CookieRepository
 import io.github.andraantariksa.crates.feature_crates.domain.repository.CratesIoRepository
-import okhttp3.JavaNetCookieJar
+import io.github.andraantariksa.crates.feature_crates.domain.repository.UserRepository
+import io.github.andraantariksa.crates.feature_crates.util.PersistedCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.net.CookieManager
 import javax.inject.Singleton
 
 
@@ -32,7 +37,22 @@ import javax.inject.Singleton
 object AppModule {
     @Singleton
     @Provides
-    fun provideCratesioAPIService(@ApplicationContext context: Context): CratesIoAPIService {
+    fun provideCratesDatabase(@ApplicationContext context: Context): CratesDatabase =
+        Room
+            .databaseBuilder(context, CratesDatabase::class.java, CratesDatabase.NAME)
+            .build()
+
+    @Singleton
+    @Provides
+    fun provideCookieRepository(cratesDatabase: CratesDatabase): CookieRepository =
+        CookieRepositoryImpl(cratesDatabase)
+
+    @Singleton
+    @Provides
+    fun provideCratesioAPIService(
+        @ApplicationContext context: Context,
+        cookieRepository: CookieRepository
+    ): CratesIoAPIService {
         val okHttpClient = OkHttpClient
             .Builder()
             .addInterceptor(
@@ -43,7 +63,7 @@ object AppModule {
                 }
             )
             .addInterceptor(ConnectivityInterceptor(context))
-            .cookieJar(JavaNetCookieJar(CookieManager()))
+            .cookieJar(PersistedCookieJar(cookieRepository = cookieRepository))
             .build()
 
         return Retrofit
@@ -63,15 +83,26 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideCratesDatabase(@ApplicationContext context: Context): CratesDatabase =
-        Room
-            .databaseBuilder(context, CratesDatabase::class.java, CratesDatabase.NAME)
-            .build()
+    fun provideUserRepository(
+        cratesIoDataSourceRemote: CratesIoDataSourceRemote,
+        userDataSourceLocal: UserDataSourceLocal,
+        cookieRepository: CookieRepository
+    ): UserRepository =
+        UserRepositoryImpl(
+            cratesIoDataSourceRemote = cratesIoDataSourceRemote,
+            userDataSourceLocal = userDataSourceLocal,
+            cookieRepository = cookieRepository
+        )
 
     @Singleton
     @Provides
     fun provideCratesIoDataSourceLocal(): CratesIoDataSourceLocal =
         CratesIoDataSourceLocalImpl()
+
+    @Singleton
+    @Provides
+    fun provideUserDataSourceLocal(cratesDatabase: CratesDatabase): UserDataSourceLocal =
+        UserDataSourceLocalImpl(cratesDatabase = cratesDatabase)
 
     @Singleton
     @Provides

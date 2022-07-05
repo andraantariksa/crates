@@ -1,18 +1,21 @@
 package io.github.andraantariksa.crates.feature_crates.ui.sign_in.screen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.andraantariksa.crates.feature_crates.data.source.remote.service.CratesIoAPIService
+import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.me.Me
 import io.github.andraantariksa.crates.feature_crates.domain.repository.CratesIoRepository
+import io.github.andraantariksa.crates.feature_crates.domain.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(val s : CratesIoAPIService, private val cratesIoRepository: CratesIoRepository) :
+class SignInViewModel @Inject constructor(
+    private val cratesIoRepository: CratesIoRepository,
+    private val userRepository: UserRepository
+) :
     ViewModel() {
     private val _signInOauthUrl = MutableStateFlow<String?>(null)
     val signInOauthUrl = _signInOauthUrl.asStateFlow()
@@ -20,12 +23,15 @@ class SignInViewModel @Inject constructor(val s : CratesIoAPIService, private va
     fun getSignInOauthUrl() = viewModelScope.launch {
         val authData = cratesIoRepository.getBeginAuthData()
         if (authData.isSuccess) {
-            val authData = authData.getOrThrow()
-            _signInOauthUrl.value = authData.url
+            _signInOauthUrl.value = authData.getOrThrow().url
         }
     }
 
-    fun a(code: String, state: String) = viewModelScope.launch {
-        Log.d("XXXXXXXXX", s.authorizeOauth(code, state))
+    suspend fun authorizeOauth(code: String, state: String): Result<Me> {
+        val me = cratesIoRepository.authorizeOauth(code, state)
+        me.getOrNull()?.let { me ->
+            userRepository.signIn(me.user)
+        }
+        return me
     }
 }

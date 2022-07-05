@@ -22,6 +22,7 @@ object Deps {
     object AndroidX {
         object Room {
             const val Version = "2.4.2"
+            const val RoomKtx = "androidx.room:room-ktx:$Version"
             const val RoomRuntime = "androidx.room:room-runtime:$Version"
             const val RoomCompiler = "androidx.room:room-compiler:$Version"
         }

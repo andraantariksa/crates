@@ -5,6 +5,8 @@ import io.github.andraantariksa.crates.feature_crates.data.exception.NoNetworkEx
 import io.github.andraantariksa.crates.feature_crates.data.source.local.CratesIoDataSourceLocal
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.CratesIoDataSourceRemote
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.detail.CrateDetail
+import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.detail.User
+import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.me.Me
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.sign_in.AuthBegin
 import io.github.andraantariksa.crates.feature_crates.domain.model.summary.CratesSummary
 import io.github.andraantariksa.crates.feature_crates.domain.repository.CratesIoRepository
@@ -64,6 +66,12 @@ class CratesIoRepositoryImpl @Inject constructor(
         Result.success(cratesIoDatasourceRemote.getBeginAuthData())
     } catch (exception: NoNetworkException) {
         Result.failure(exception)
+    } catch (exception: Exception) {
+        Result.failure(exception)
+    }
+
+    override suspend fun authorizeOauth(code: String, state: String): Result<Me> = try {
+        Result.success(cratesIoDatasourceRemote.authorizeOauth(code, state))
     } catch (exception: Exception) {
         Result.failure(exception)
     }

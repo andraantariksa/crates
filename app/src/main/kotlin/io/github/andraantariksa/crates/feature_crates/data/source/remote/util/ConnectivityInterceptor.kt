@@ -2,7 +2,7 @@ package io.github.andraantariksa.crates.feature_crates.data.source.remote.servic
 
 import android.content.Context
 import android.net.ConnectivityManager
-import io.github.andraantariksa.crates.feature_crates.data.source.remote.exception.NoNetworkException
+import io.github.andraantariksa.crates.feature_crates.data.exception.NoNetworkException
 import okhttp3.Interceptor
 import okhttp3.Response
 

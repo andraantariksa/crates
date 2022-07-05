@@ -15,18 +15,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.andraantariksa.crates.feature_crates.domain.model.user.User
 import io.github.andraantariksa.crates.feature_crates.ui.sign_in.SignInActivity
 
-data class UserBriefProfile(
-    val name: String,
-    val imageUrl: String
-)
-
 @Composable
-fun UserBriefProfile(modifier: Modifier = Modifier, userBriefProfile: UserBriefProfile? = null) {
-    val context = LocalContext.current
+fun UserBriefProfile(
+    modifier: Modifier = Modifier,
+    user: User? = null,
+    onSignOut: () -> Unit = {},
+    onSignIn: () -> Unit = {}
+) {
     Box(modifier) {
-        if (userBriefProfile == null) {
+        if (user == null) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -40,11 +40,7 @@ fun UserBriefProfile(modifier: Modifier = Modifier, userBriefProfile: UserBriefP
                         .height(50.dp)
                 )
                 Button(
-                    onClick = {
-                        context.startActivity(
-                            Intent(context, SignInActivity::class.java)
-                        )
-                    },
+                    onClick = onSignIn,
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = MaterialTheme.colors.secondary,
                     )
@@ -53,7 +49,31 @@ fun UserBriefProfile(modifier: Modifier = Modifier, userBriefProfile: UserBriefP
                 }
             }
         } else {
-
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row {
+//                    AsyncImage(
+//                        imageVector = Icons.Default.Person,
+//                        contentDescription = "User profile picture",
+//                        modifier = Modifier
+//                            .width(50.dp)
+//                            .height(50.dp)
+//                    )
+                    Text(user.name)
+                    Text(user.email)
+                }
+                Button(
+                    onClick = onSignOut,
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = MaterialTheme.colors.secondary,
+                    )
+                ) {
+                    Text(text = "Sign Out")
+                }
+            }
         }
     }
 }

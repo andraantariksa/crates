@@ -1,9 +1,11 @@
 package io.github.andraantariksa.crates.feature_crates.data.source.remote.service
 
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.detail.CrateDetail
+import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.me.Me
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.search.CratesSearch
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.sign_in.AuthBegin
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.summary.CratesSummary
+import retrofit2.Response
 import retrofit2.http.*
 
 interface CratesIoAPIService {
@@ -25,9 +27,12 @@ interface CratesIoAPIService {
 
     @Headers("referer: https://crates.io/")
     @GET("private/session/authorize")
-    suspend fun authorizeOauth(@Query("code") code: String, @Query("state") state: String): String
+    suspend fun authorizeOauth(@Query("code") code: String, @Query("state") state: String): Me
 
     @DELETE("private/session")
-    suspend fun signOut(@Header("Cookie") cookie: String)
+    suspend fun signOut(): Response<Unit>
+
+    @GET("v1/me")
+    suspend fun getMe(): Response<Me>
 }
 
