@@ -80,6 +80,7 @@ dependencies {
     implementation(Deps.SquareUp.OkHttp.LoggingInterceptor)
     implementation(Deps.SquareUp.OkHttp.UrlConnection)
     implementation(Deps.AndroidX.Room.RoomKtx)
+    implementation(Deps.Google.Accompanist.Placeholder)
     implementation(Deps.AndroidX.Room.RoomRuntime)
     implementation(Deps.Google.Accompanist.WebView)
     kapt(Deps.AndroidX.Room.RoomCompiler)

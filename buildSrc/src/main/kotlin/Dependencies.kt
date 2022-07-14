@@ -96,6 +96,7 @@ object Deps {
         object Accompanist {
             const val Version = "0.24.13-rc"
             const val WebView = "com.google.accompanist:accompanist-webview:$Version"
+            const val Placeholder = "com.google.acompanist:acompanist-placeholder-material:$Version"
         }
 
         object Dagger {
