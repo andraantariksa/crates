@@ -1,6 +1,6 @@
 @Suppress("MemberVisibilityCanBePrivate", "SpellCheckingInspection")
 object Deps {
-    const val KotlinVersion = "1.6.10"
+    const val KotlinVersion = "1.7.10"
 
     object Android {
         object BuildTools {
@@ -51,7 +51,7 @@ object Deps {
         }
 
         object Compose {
-            const val Version = "1.1.1"
+            const val Version = "1.3.1"
 
             object UI {
                 const val UITooling = "androidx.compose.ui:ui-tooling:$Version"
@@ -94,9 +94,9 @@ object Deps {
 
     object Google {
         object Accompanist {
-            const val Version = "0.24.13-rc"
+            const val Version = "0.29.1-alpha"
             const val WebView = "com.google.accompanist:accompanist-webview:$Version"
-            const val Placeholder = "com.google.acompanist:acompanist-placeholder-material:$Version"
+            const val Placeholder = "com.google.accompanist:accompanist-placeholder-material:$Version"
         }
 
         object Dagger {
@@ -134,7 +134,7 @@ object Deps {
         }
 
         object Moshi {
-            const val Version = "1.13.0"
+            const val Version = "1.14.0"
             const val Moshi = "com.squareup.moshi:moshi:$Version"
             const val MoshiCodegen = "com.squareup.moshi:moshi-kotlin-codegen:$Version"
         }
@@ -163,5 +163,10 @@ object Deps {
     object Robolectric {
         const val Version = "4.8.1"
         const val Robolectric = "org.robolectric:robolectric:$Version"
+    }
+
+    object Coil {
+        const val Version = "2.2.2"
+        const val CoilCompose = "io.coil-kt:coil-compose:$Version"
     }
 }

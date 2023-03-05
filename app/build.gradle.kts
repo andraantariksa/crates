@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion = "android-32"
+    compileSdkVersion = "android-33"
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId = "io.github.andraantariksa.cratesio"
-        minSdkVersion(21)
-        targetSdkVersion(32)
+        minSdk = 21
+        targetSdk = 32
         versionCode = 1
         versionName = "1.0"
 
@@ -52,6 +52,7 @@ android {
 dependencies {
     implementation(fileTree("libs") { listOf("*.jar") })
 
+    implementation(Deps.Coil.CoilCompose)
     implementation(Deps.SquareUp.Retrofit.Retrofit)
     implementation(Deps.SquareUp.Retrofit.ConverterMoshi)
     implementation(Deps.SquareUp.Retrofit.ConverterScalars)

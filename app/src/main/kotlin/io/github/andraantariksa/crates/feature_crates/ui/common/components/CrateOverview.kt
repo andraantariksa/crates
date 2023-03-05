@@ -10,14 +10,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import io.github.andraantariksa.crates.feature_crates.domain.model.crate.Crate
+import io.github.andraantariksa.crates.feature_crates.domain.entity.crate.Crate
 
 @Composable
-fun CrateOverview(crate: Crate? = null, onClick: (() -> Unit)? = null) {
+fun CrateOverview(
+    crate: Crate? = null,
+    onClick: (() -> Unit)? = null
+) {
     val density = LocalDensity.current
     Surface(
         elevation = 4.dp
@@ -39,11 +40,9 @@ fun CrateOverview(crate: Crate? = null, onClick: (() -> Unit)? = null) {
                         with(density) {
                             Box(
                                 modifier = Modifier
-                                    .height(TextUnit.Unspecified.toDp())
                             )
                             Box(
                                 modifier = Modifier
-                                    .height(TextUnit.Unspecified.toDp())
                             )
                         }
                     }

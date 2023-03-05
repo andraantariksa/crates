@@ -21,7 +21,7 @@ data class CratesSummary(
     override val popularCategories: List<PopularCategory>,
     @Json(name = "popular_keywords")
     override val popularKeywords: List<PopularKeyword>,
-) : io.github.andraantariksa.crates.feature_crates.domain.model.summary.CratesSummary(
+) : io.github.andraantariksa.crates.feature_crates.domain.entity.summary.CratesSummary(
     justUpdatedCrate = justUpdatedCrate,
     mostDownloaded = mostDownloaded,
     mostRecentlyDownloaded = mostRecentlyDownloaded,

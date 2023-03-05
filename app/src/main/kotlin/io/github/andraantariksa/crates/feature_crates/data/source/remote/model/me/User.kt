@@ -3,12 +3,12 @@ package io.github.andraantariksa.crates.feature_crates.data.source.remote.model.
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import io.github.andraantariksa.crates.feature_crates.domain.model.user.User
+import io.github.andraantariksa.crates.feature_crates.domain.entity.user.User
 
 @JsonClass(generateAdapter = true)
 data class User(
     @Json(name = "avatar")
-    override val avatar: String,
+    override val avatar: String?,
     @Json(name = "email")
     override val email: String,
     @Json(name = "email_verification_sent")

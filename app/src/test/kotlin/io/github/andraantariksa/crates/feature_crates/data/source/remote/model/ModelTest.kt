@@ -2,7 +2,7 @@ package io.github.andraantariksa.crates.feature_crates.data.source.remote.model
 
 import com.google.common.truth.Truth.assertThat
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.summary.JustUpdatedCrate
-import io.github.andraantariksa.crates.feature_crates.domain.model.crate.Crate
+import io.github.andraantariksa.crates.feature_crates.domain.entity.crate.Crate
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.summary.MostDownloaded
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.summary.MostRecentlyDownloaded
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.summary.NewCrate

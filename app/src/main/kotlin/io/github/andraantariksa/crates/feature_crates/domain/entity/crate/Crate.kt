@@ -1,4 +1,4 @@
-package io.github.andraantariksa.crates.feature_crates.domain.model.crate
+package io.github.andraantariksa.crates.feature_crates.domain.entity.crate
 
 open class Crate(
     open val name: String,

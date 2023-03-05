@@ -3,7 +3,7 @@ package io.github.andraantariksa.crates.feature_crates.data.source.remote.model.
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import io.github.andraantariksa.crates.feature_crates.domain.model.crate.Crate
+import io.github.andraantariksa.crates.feature_crates.domain.entity.crate.Crate
 
 @JsonClass(generateAdapter = true)
 data class NewCrate(

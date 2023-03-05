@@ -2,10 +2,11 @@ package io.github.andraantariksa.crates.feature_crates.data.source.remote
 
 import io.github.andraantariksa.crates.feature_crates.data.exception.UnauthenticatedException
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.detail.CrateDetail
-import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.me.Me
+import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.me.MyUser
+import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.me.User
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.sign_in.AuthBegin
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.service.CratesIoAPIService
-import io.github.andraantariksa.crates.feature_crates.domain.model.summary.CratesSummary
+import io.github.andraantariksa.crates.feature_crates.domain.entity.summary.CratesSummary
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -20,10 +21,11 @@ class CratesIoDataSourceRemoteImpl
 
     override suspend fun getBeginAuthData(): AuthBegin = cratesIoAPIService.getBeginAuthData()
 
-    override suspend fun authorizeOauth(code: String, state: String): Me =
-        cratesIoAPIService.authorizeOauth(code, state)
+    override suspend fun authorizeOauth(code: String, state: String): MyUser {
+        return cratesIoAPIService.authorizeOauth(code, state)
+    }
 
-    override suspend fun getMe(): Result<Me> {
+    override suspend fun getMe(): Result<MyUser> {
         val resp = cratesIoAPIService.getMe()
         if (resp.isSuccessful) {
             return Result.success(resp.body()!!)

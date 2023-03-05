@@ -69,7 +69,7 @@ fun SignInScreen(signInViewModel: SignInViewModel = hiltViewModel()) {
             }
             if (signInOauthUrl != null) {
                 val webViewState = rememberWebViewState(signInOauthUrl)
-                val currentUrl = webViewState.content.getCurrentUrl()
+                val currentUrl = webViewState.lastLoadedUrl
 
                 LaunchedEffect(currentUrl) {
                     if (currentUrl?.startsWith("https://crates.io/github-redirect.html?") == true) {

@@ -1,4 +1,4 @@
-package io.github.andraantariksa.crates.feature_crates.domain.model.summary
+package io.github.andraantariksa.crates.feature_crates.domain.entity.summary
 
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.summary.*
 

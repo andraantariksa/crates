@@ -1,6 +1,6 @@
 package io.github.andraantariksa.crates.feature_crates.data.source.local
 
-import io.github.andraantariksa.crates.feature_crates.domain.model.user.User
+import io.github.andraantariksa.crates.feature_crates.domain.entity.user.User
 import kotlinx.coroutines.flow.Flow
 
 interface UserDataSourceLocal {

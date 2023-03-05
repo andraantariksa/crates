@@ -3,7 +3,7 @@ package io.github.andraantariksa.crates.feature_crates.ui.sign_in.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.me.Me
+import io.github.andraantariksa.crates.feature_crates.domain.entity.user.User
 import io.github.andraantariksa.crates.feature_crates.domain.repository.CratesIoRepository
 import io.github.andraantariksa.crates.feature_crates.domain.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,10 +27,10 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    suspend fun authorizeOauth(code: String, state: String): Result<Me> {
+    suspend fun authorizeOauth(code: String, state: String): Result<User> {
         val me = cratesIoRepository.authorizeOauth(code, state)
-        me.getOrNull()?.let { me ->
-            userRepository.signIn(me.user)
+        me.getOrNull()?.let { myUser ->
+            userRepository.signIn(myUser)
         }
         return me
     }

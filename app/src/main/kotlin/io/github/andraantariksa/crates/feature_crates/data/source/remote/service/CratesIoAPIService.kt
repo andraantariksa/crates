@@ -1,7 +1,8 @@
 package io.github.andraantariksa.crates.feature_crates.data.source.remote.service
 
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.detail.CrateDetail
-import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.me.Me
+import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.me.MyUser
+import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.me.User
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.search.CratesSearch
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.sign_in.AuthBegin
 import io.github.andraantariksa.crates.feature_crates.data.source.remote.model.summary.CratesSummary
@@ -27,12 +28,12 @@ interface CratesIoAPIService {
 
     @Headers("referer: https://crates.io/")
     @GET("private/session/authorize")
-    suspend fun authorizeOauth(@Query("code") code: String, @Query("state") state: String): Me
+    suspend fun authorizeOauth(@Query("code") code: String, @Query("state") state: String): MyUser
 
     @DELETE("private/session")
     suspend fun signOut(): Response<Unit>
 
     @GET("v1/me")
-    suspend fun getMe(): Response<Me>
+    suspend fun getMe(): Response<MyUser>
 }
 

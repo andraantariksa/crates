@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Me(
+data class MyUser(
     @Json(name = "owned_crates")
     val ownedCrates: List<OwnedCrate>,
     @Json(name = "user")

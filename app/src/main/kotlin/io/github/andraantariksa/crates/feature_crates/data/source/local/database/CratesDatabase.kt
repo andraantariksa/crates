@@ -9,10 +9,10 @@ import io.github.andraantariksa.crates.feature_crates.data.source.local.dao.Crat
 import io.github.andraantariksa.crates.feature_crates.data.source.local.dao.UserDao
 import io.github.andraantariksa.crates.feature_crates.data.source.local.model.cookie.CookieEntity
 import io.github.andraantariksa.crates.feature_crates.data.source.local.model.crates_summary.CratesSummaryEntity
-import io.github.andraantariksa.crates.feature_crates.data.source.local.model.user.UserEntity
+import io.github.andraantariksa.crates.feature_crates.data.source.local.model.user.MyUserDBEntity
 
 @Database(
-    entities = [CratesSummaryEntity::class, CookieEntity::class, UserEntity::class],
+    entities = [CratesSummaryEntity::class, CookieEntity::class, MyUserDBEntity::class],
     version = 1
 )
 @TypeConverters(MoshiConverter::class)
