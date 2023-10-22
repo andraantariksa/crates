@@ -19,19 +19,19 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.andraantariksa.crates.BuildConfig
 import io.github.andraantariksa.crates.feature_crates.ui.main.UserViewModel
-import io.github.andraantariksa.crates.feature_crates.ui.main.screens.misc.components.MiscItem
+import io.github.andraantariksa.crates.feature_crates.ui.main.screens.misc.components.SettingsItem
 import io.github.andraantariksa.crates.feature_crates.ui.main.screens.misc.components.UserBriefProfile
 import io.github.andraantariksa.crates.feature_crates.ui.settings.SettingsActivity
 import io.github.andraantariksa.crates.feature_crates.ui.sign_in.SignInActivity
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen(userViewModel: UserViewModel = hiltViewModel()) {
+fun MiscScreen(userViewModel: UserViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
+    val user by userViewModel.user.collectAsState(initial = null)
     LazyColumn(modifier = Modifier.padding(vertical = 15.dp)) {
         item {
-            val user by userViewModel.user.collectAsState(initial = null)
             UserBriefProfile(
                 modifier = Modifier
                     .padding(bottom = 20.dp)
@@ -50,7 +50,7 @@ fun SettingsScreen(userViewModel: UserViewModel = hiltViewModel()) {
             )
         }
         item {
-            MiscItem(
+            SettingsItem(
                 "Settings",
                 modifier = Modifier
                     .padding(horizontal = 10.dp, vertical = 18.dp)
@@ -63,7 +63,7 @@ fun SettingsScreen(userViewModel: UserViewModel = hiltViewModel()) {
                     Intent(context, SettingsActivity::class.java)
                 )
             }
-            MiscItem(
+            SettingsItem(
                 "About",
                 "Version ${BuildConfig.VERSION_NAME}",
                 modifier = Modifier
@@ -80,5 +80,5 @@ fun SettingsScreen(userViewModel: UserViewModel = hiltViewModel()) {
 @Composable
 @Preview
 fun PreviewSettingsScreen() {
-    SettingsScreen()
+    MiscScreen()
 }

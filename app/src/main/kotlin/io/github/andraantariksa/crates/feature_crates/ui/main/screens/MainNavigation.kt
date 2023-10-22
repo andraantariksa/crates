@@ -5,7 +5,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import io.github.andraantariksa.crates.feature_crates.ui.main.screens.crates_summary.CratesSummaryScreen
-import io.github.andraantariksa.crates.feature_crates.ui.main.screens.misc.SettingsScreen
+import io.github.andraantariksa.crates.feature_crates.ui.main.screens.misc.MiscScreen
 
 @Composable
 fun MainNavigation(mainState: MainState) {
@@ -17,7 +17,7 @@ fun MainNavigation(mainState: MainState) {
             CratesSummaryScreen()
         }
         composable(MainNavigationGraph.Settings.route) {
-            SettingsScreen()
+            MiscScreen()
         }
     }
 }

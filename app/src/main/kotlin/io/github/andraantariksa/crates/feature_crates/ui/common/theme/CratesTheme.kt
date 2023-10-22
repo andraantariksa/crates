@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun CratesTheme(content: @Composable () -> Unit) {
-    val colors = remember(Unit) {
+    val colors = remember {
         lightColors(
             secondary = Color(0xffffc933),
             primary = Color(0xff3b6837),

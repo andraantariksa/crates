@@ -16,4 +16,7 @@ interface CookieDao {
 
     @Query("DELETE FROM cookie WHERE host = :host")
     suspend fun remove(host: String)
+
+    @Query("DELETE FROM cookie")
+    suspend fun removeAll()
 }

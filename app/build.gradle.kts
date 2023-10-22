@@ -1,18 +1,18 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("com.google.devtools.ksp")
 }
 
 android {
-    compileSdkVersion = "android-33"
+    compileSdkVersion = "android-34"
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId = "io.github.andraantariksa.cratesio"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -34,7 +34,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Deps.AndroidX.Compose.Version
+        kotlinCompilerExtensionVersion = "1.3.1"
     }
 
     compileOptions {
@@ -52,45 +52,51 @@ android {
 dependencies {
     implementation(fileTree("libs") { listOf("*.jar") })
 
-    implementation(Deps.Coil.CoilCompose)
-    implementation(Deps.SquareUp.Retrofit.Retrofit)
-    implementation(Deps.SquareUp.Retrofit.ConverterMoshi)
-    implementation(Deps.SquareUp.Retrofit.ConverterScalars)
-    implementation(Deps.SquareUp.Moshi.Moshi)
-    kapt(Deps.SquareUp.Moshi.MoshiCodegen)
-    implementation(Deps.AndroidX.Hilt.HiltNavigationCompose)
-    implementation(Deps.Google.Dagger.HiltAndroid)
-    kapt(Deps.Google.Dagger.HiltAndroidCompiler)
-    kapt(Deps.Google.Dagger.DaggerAndroidProcessor)
-    implementation(Deps.Markwon.Core)
-    implementation(Deps.Markwon.ImageCoil)
-    implementation(Deps.Google.Firebase.FirebaseAnalyticsKtx)
-    implementation(Deps.Google.Firebase.FirebaseCrashlyticsKtx)
-    implementation(Deps.AndroidX.Activity.ActivityCompose)
-    implementation(Deps.AndroidX.Compose.UI.UITooling)
-    implementation(Deps.AndroidX.Compose.UI.UI)
-    implementation(Deps.AndroidX.Compose.Material.Material)
-    implementation(Deps.AndroidX.Compose.Material.MaterialIconsCore)
-    implementation(Deps.AndroidX.Compose.Material.MaterialIconsExtended)
-    implementation(Deps.AndroidX.Compose.Foundation.Foundation)
-    implementation(Deps.AndroidX.Lifecycle.LifecycleViewmodelCompose)
-    implementation(Deps.Google.Android.Material)
-    implementation(Deps.AndroidX.Core.CoreKtx)
-    implementation(Deps.AndroidX.Navigation.NavigationCompose)
-    implementation(Deps.AirBNB.LottieCompose)
-    implementation(Deps.SquareUp.OkHttp.LoggingInterceptor)
-    implementation(Deps.SquareUp.OkHttp.UrlConnection)
-    implementation(Deps.AndroidX.Room.RoomKtx)
-    implementation(Deps.Google.Accompanist.Placeholder)
-    implementation(Deps.AndroidX.Room.RoomRuntime)
-    implementation(Deps.Google.Accompanist.WebView)
-    kapt(Deps.AndroidX.Room.RoomCompiler)
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("io.coil-kt:coil-compose:2.2.2")
+    val retrofitVersion = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-scalars:$retrofitVersion")
+    val moshiVersion = "1.15.0"
+    implementation("com.squareup.moshi:moshi:$moshiVersion")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    val hiltVersion = "2.42"
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    ksp("com.google.dagger:dagger-android-processor:$hiltVersion")
+    val markwonVersion = "4.6.2"
+    implementation("io.noties.markwon:core:$markwonVersion")
+    implementation("io.noties.markwon:image-coil:$markwonVersion")
+    implementation("com.google.firebase:firebase-analytics-ktx:21.0.0")
+    implementation("com.google.firebase:firebase-crashlytics-ktx:18.2.11")
+    implementation("androidx.activity:activity-compose:1.8.0")
+    implementation("androidx.compose.ui:ui-tooling:1.5.4")
+    implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.compose.material:material:1.5.4")
+    implementation("androidx.compose.material:material-icons-core:1.5.4")
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+    implementation("androidx.compose.foundation:foundation:1.5.4")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation("com.google.android.material:material:1.11.0-alpha03")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.navigation:navigation-compose:2.7.4")
+    implementation("com.airbnb.android:lottie-compose:5.2.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation("com.squareup.okhttp3:okhttp-urlconnection:4.9.1")
+    implementation("com.google.accompanist:accompanist-placeholder-material:0.29.1-alpha")
+    implementation("com.google.accompanist:accompanist-webview:0.29.1-alpha")
+    val roomVersion = "2.4.2"
+    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
 
-    testImplementation(Deps.Mockito.MockitoKotlin)
-    testImplementation(Deps.Robolectric.Robolectric)
-    testImplementation(Deps.JUnit.JUnit)
-    testImplementation(Deps.Google.Truth.Truth)
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
+    testImplementation("org.robolectric:robolectric:4.8.1")
+    testImplementation("androidx.test.ext:junit:1.1.5")
+    testImplementation("com.google.truth:truth:1.1.3")
 
-    androidTestImplementation(Deps.AndroidX.Test.Ext.JUnit)
-    androidTestImplementation(Deps.AndroidX.Test.Espresso.EspressoCore)
+    androidTestImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
