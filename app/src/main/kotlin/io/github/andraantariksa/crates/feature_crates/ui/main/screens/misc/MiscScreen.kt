@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.andraantariksa.crates.BuildConfig
 import io.github.andraantariksa.crates.feature_crates.ui.main.UserViewModel
 import io.github.andraantariksa.crates.feature_crates.ui.main.screens.misc.components.SettingsItem
@@ -24,9 +23,10 @@ import io.github.andraantariksa.crates.feature_crates.ui.main.screens.misc.compo
 import io.github.andraantariksa.crates.feature_crates.ui.settings.SettingsActivity
 import io.github.andraantariksa.crates.feature_crates.ui.sign_in.SignInActivity
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MiscScreen(userViewModel: UserViewModel = hiltViewModel()) {
+fun MiscScreen(userViewModel: UserViewModel = koinViewModel()) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val user by userViewModel.user.collectAsState(initial = null)

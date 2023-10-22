@@ -16,16 +16,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 import io.github.andraantariksa.crates.R
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SignInScreen(signInViewModel: SignInViewModel = hiltViewModel()) {
+fun SignInScreen(signInViewModel: SignInViewModel = koinViewModel()) {
     Surface(
         color = MaterialTheme.colors.background
     ) {

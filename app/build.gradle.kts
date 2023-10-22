@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
 }
 
@@ -61,11 +60,8 @@ dependencies {
     val moshiVersion = "1.15.0"
     implementation("com.squareup.moshi:moshi:$moshiVersion")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-    val hiltVersion = "2.42"
-    implementation("com.google.dagger:hilt-android:$hiltVersion")
-    ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
-    ksp("com.google.dagger:dagger-android-processor:$hiltVersion")
+    val koinVersion = "3.4.2"
+    implementation("io.insert-koin:koin-androidx-compose:$koinVersion")
     val markwonVersion = "4.6.2"
     implementation("io.noties.markwon:core:$markwonVersion")
     implementation("io.noties.markwon:image-coil:$markwonVersion")

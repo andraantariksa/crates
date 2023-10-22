@@ -1,9 +1,9 @@
 package io.github.andraantariksa.crates.feature_crates.ui.crate
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CrateScreen(crateId: Int, crateViewModel: CrateViewModel = hiltViewModel()) {
+fun CrateScreen(crateId: Int, crateViewModel: CrateViewModel = koinViewModel()) {
 
 }

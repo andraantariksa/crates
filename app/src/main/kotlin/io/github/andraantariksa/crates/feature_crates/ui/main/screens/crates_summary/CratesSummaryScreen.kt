@@ -13,18 +13,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.andraantariksa.crates.common.util.Resource
 import io.github.andraantariksa.crates.feature_crates.ui.common.components.CrateOverview
 import io.github.andraantariksa.crates.feature_crates.ui.crate.CrateActivity
 import io.github.andraantariksa.crates.feature_crates.ui.main.screens.UIEvent
 import io.github.andraantariksa.crates.feature_crates.ui.main.screens.crates_summary.component.CrateOverviews
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 @Preview
 @Composable
 fun CratesSummaryScreen(
-    cratesSummaryViewModel: CratesSummaryViewModel = hiltViewModel()
+    cratesSummaryViewModel: CratesSummaryViewModel = koinViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
 

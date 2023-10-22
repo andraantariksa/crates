@@ -1,12 +1,6 @@
 package io.github.andraantariksa.crates.feature_crates.di
 
-import android.content.Context
 import androidx.room.Room
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import io.github.andraantariksa.crates.feature_crates.data.repository.CookieRepositoryImpl
 import io.github.andraantariksa.crates.feature_crates.data.repository.CratesIoRepositoryImpl
 import io.github.andraantariksa.crates.feature_crates.data.repository.UserRepositoryImpl
@@ -22,90 +16,70 @@ import io.github.andraantariksa.crates.feature_crates.data.source.remote.service
 import io.github.andraantariksa.crates.feature_crates.domain.repository.CookieRepository
 import io.github.andraantariksa.crates.feature_crates.domain.repository.CratesIoRepository
 import io.github.andraantariksa.crates.feature_crates.domain.repository.UserRepository
+import io.github.andraantariksa.crates.feature_crates.ui.crate.CrateViewModel
+import io.github.andraantariksa.crates.feature_crates.ui.main.UserViewModel
+import io.github.andraantariksa.crates.feature_crates.ui.main.screens.crates_summary.CratesSummaryViewModel
+import io.github.andraantariksa.crates.feature_crates.ui.sign_in.screen.SignInViewModel
 import io.github.andraantariksa.crates.feature_crates.util.PersistedCookieJar
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.single
-import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import javax.inject.Singleton
 
 
-@Module
-@InstallIn(SingletonComponent::class)
-object AppModule {
-    @Singleton
-    @Provides
-    fun provideCratesDatabase(@ApplicationContext context: Context): CratesDatabase =
+val appModule = module {
+    single {
         Room
-            .databaseBuilder(context, CratesDatabase::class.java, CratesDatabase.NAME)
+            .databaseBuilder(get(), CratesDatabase::class.java, CratesDatabase.NAME)
             .build()
+    }
 
-    @Singleton
-    @Provides
-    fun provideCookieRepository(cratesDatabase: CratesDatabase): CookieRepository =
-        CookieRepositoryImpl(cratesDatabase)
+    single<CookieRepository> {
+        CookieRepositoryImpl(get())
+    }
 
-    @Singleton
-    @Provides
-    fun provideCratesioAPIService(
-        @ApplicationContext context: Context,
-        cookieRepository: CookieRepository
-    ): CratesIoAPIService {
+    single<CratesIoRepository> {
+        CratesIoRepositoryImpl(
+            cratesIoDatasourceLocal = get(),
+            cratesIoDatasourceRemote = get()
+        )
+    }
+
+    single<UserDataSourceLocal> {
+        UserDataSourceLocalImpl(cratesDatabase = get())
+    }
+
+    single<CratesIoDataSourceLocal> {
+        CratesIoDataSourceLocalImpl()
+    }
+
+    single {
         val okHttpClient = OkHttpClient.Builder()
-//            .addInterceptor {
-//                var requestBuilder = it.request().newBuilder()
-//                runBlocking {
-//                    userDataSourceLocal.get().first()?.let { myUser ->
-//                        requestBuilder =
-//                            requestBuilder.header("cookie", "cargo_session=${myUser.session}")
-//                    }
-//                }
-//                it.proceed(requestBuilder.build())
-//            }
-            .addInterceptor(ConnectivityInterceptor(context))
-            .cookieJar(PersistedCookieJar(cookieRepository = cookieRepository))
+            .addInterceptor(ConnectivityInterceptor(get()))
+            .cookieJar(PersistedCookieJar(cookieRepository = get()))
             .build()
 
-        return Retrofit.Builder().client(okHttpClient).baseUrl("https://crates.io/api/")
+        Retrofit.Builder().client(okHttpClient).baseUrl("https://crates.io/api/")
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create()).build()
             .create(CratesIoAPIService::class.java)
     }
 
-    @Singleton
-    @Provides
-    fun provideCratesIoDataSourceRemote(cratesioAPIService: CratesIoAPIService): CratesIoDataSourceRemote =
-        CratesIoDataSourceRemoteImpl(cratesioAPIService)
+    single<CratesIoDataSourceRemote> {
+        CratesIoDataSourceRemoteImpl(get())
+    }
 
-    @Singleton
-    @Provides
-    fun provideUserRepository(
-        cratesIoDataSourceRemote: CratesIoDataSourceRemote,
-        userDataSourceLocal: UserDataSourceLocal,
-    ): UserRepository = UserRepositoryImpl(
-        cratesIoDataSourceRemote = cratesIoDataSourceRemote,
-        userDataSourceLocal = userDataSourceLocal
-    )
+    single<UserRepository> {
+        UserRepositoryImpl(
+            cratesIoDataSourceRemote = get(),
+            userDataSourceLocal = get()
+        )
+    }
 
-    @Singleton
-    @Provides
-    fun provideCratesIoDataSourceLocal(): CratesIoDataSourceLocal = CratesIoDataSourceLocalImpl()
-
-    @Singleton
-    @Provides
-    fun provideUserDataSourceLocal(cratesDatabase: CratesDatabase): UserDataSourceLocal =
-        UserDataSourceLocalImpl(cratesDatabase = cratesDatabase)
-
-    @Singleton
-    @Provides
-    fun provideCratesIoRepository(
-        cratesIoDatasourceRemote: CratesIoDataSourceRemote,
-        cratesIoDatasourceLocal: CratesIoDataSourceLocal
-    ): CratesIoRepository = CratesIoRepositoryImpl(
-        cratesIoDatasourceLocal = cratesIoDatasourceLocal,
-        cratesIoDatasourceRemote = cratesIoDatasourceRemote
-    )
+    viewModel { CrateViewModel(get()) }
+    viewModel { SignInViewModel(get(), get()) }
+    viewModel { CratesSummaryViewModel(get()) }
+    viewModel { UserViewModel(get()) }
 }

@@ -2,21 +2,17 @@ package io.github.andraantariksa.crates.feature_crates.ui.sign_in.screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.andraantariksa.crates.feature_crates.domain.entity.user.User
 import io.github.andraantariksa.crates.feature_crates.domain.repository.CratesIoRepository
 import io.github.andraantariksa.crates.feature_crates.domain.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class SignInViewModel @Inject constructor(
+class SignInViewModel(
     private val cratesIoRepository: CratesIoRepository,
     private val userRepository: UserRepository
-) :
-    ViewModel() {
+) : ViewModel() {
     private val _signInOauthUrl = MutableStateFlow<String?>(null)
     val signInOauthUrl = _signInOauthUrl.asStateFlow()
 
