@@ -10,7 +10,7 @@ android {
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
-        applicationId = "io.github.andraantariksa.cratesio"
+        applicationId = "io.github.andraantariksa.crates"
         minSdk = 21
         targetSdk = 34
         versionCode = 1
@@ -34,7 +34,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.1"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 
     compileOptions {
@@ -69,8 +69,8 @@ dependencies {
     val markwonVersion = "4.6.2"
     implementation("io.noties.markwon:core:$markwonVersion")
     implementation("io.noties.markwon:image-coil:$markwonVersion")
-    implementation("com.google.firebase:firebase-analytics-ktx:21.0.0")
-    implementation("com.google.firebase:firebase-crashlytics-ktx:18.2.11")
+    implementation("com.google.firebase:firebase-analytics-ktx:21.4.0")
+    implementation("com.google.firebase:firebase-crashlytics-ktx:18.5.0")
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation("androidx.compose.ui:ui-tooling:1.5.4")
     implementation("androidx.compose.ui:ui:1.5.4")
@@ -87,7 +87,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp-urlconnection:4.9.1")
     implementation("com.google.accompanist:accompanist-placeholder-material:0.29.1-alpha")
     implementation("com.google.accompanist:accompanist-webview:0.29.1-alpha")
-    val roomVersion = "2.4.2"
+    val roomVersion = "2.6.0"
     implementation("androidx.room:room-ktx:$roomVersion")
     implementation("androidx.room:room-runtime:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
