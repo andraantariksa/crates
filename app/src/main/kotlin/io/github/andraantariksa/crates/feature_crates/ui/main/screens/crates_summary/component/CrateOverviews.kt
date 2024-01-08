@@ -33,7 +33,7 @@ fun CrateOverviews(title: String, crates: List<Crate>? = null) {
                 crates.forEach { item ->
                     CrateOverview(item) {
                         context.startActivity(
-                            Intent(context, CrateActivity::class.java)
+                            CrateActivity.init(context, item.id)
                         )
                     }
                 }

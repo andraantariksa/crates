@@ -1,7 +1,6 @@
 package io.github.andraantariksa.crates.feature_crates.ui.main.screens.misc.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -9,7 +8,8 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -22,7 +22,9 @@ private fun UserBriefProfileUnauthenticated(onSignIn: () -> Unit = {}) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Image(
                 imageVector = Icons.Default.Person,
                 contentDescription = "Default user profile picture",
@@ -30,9 +32,7 @@ private fun UserBriefProfileUnauthenticated(onSignIn: () -> Unit = {}) {
                     .width(50.dp)
                     .height(50.dp)
             )
-            Column {
-                Text("You have not yet signed in")
-            }
+            Text("You have not yet signed in")
         }
         Button(
             onClick = onSignIn,
@@ -48,6 +48,7 @@ private fun UserBriefProfileUnauthenticated(onSignIn: () -> Unit = {}) {
 @Composable
 fun UserBriefProfileAuthenticated(user: User, onSignOut: () -> Unit) {
     var showSignOutDialog by remember { mutableStateOf(false) }
+    val fallbackImage = rememberVectorPainter(Icons.Default.Person)
 
     if (showSignOutDialog) {
         AlertDialog(
@@ -86,16 +87,20 @@ fun UserBriefProfileAuthenticated(user: User, onSignOut: () -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             AsyncImage(
-                model = user.avatar ?: Icons.Default.Person,
+                model = user.avatar,
+                placeholder = fallbackImage,
+                error = fallbackImage,
                 contentDescription = "User profile picture",
                 modifier = Modifier
                     .width(50.dp)
                     .height(50.dp)
             )
             Column {
-                Text(user.name)
+                Text(user.name, fontWeight = FontWeight.Bold)
                 Text(user.email)
             }
         }
@@ -130,7 +135,7 @@ fun UserBriefProfile(
 
 @Preview
 @Composable
-fun PreviewUserBriefProfile() {
+fun PreviewUserBriefProfileAuthenticated() {
     UserBriefProfile()
 }
 

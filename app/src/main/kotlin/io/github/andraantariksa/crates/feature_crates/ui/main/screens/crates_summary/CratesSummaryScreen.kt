@@ -1,8 +1,5 @@
 package io.github.andraantariksa.crates.feature_crates.ui.main.screens.crates_summary
 
-import android.content.Intent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
@@ -10,12 +7,9 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import io.github.andraantariksa.crates.common.util.Resource
-import io.github.andraantariksa.crates.feature_crates.ui.common.components.CrateOverview
-import io.github.andraantariksa.crates.feature_crates.ui.crate.CrateActivity
+import io.github.andraantariksa.crates.common.util.CratesResult
 import io.github.andraantariksa.crates.feature_crates.ui.main.screens.UIEvent
 import io.github.andraantariksa.crates.feature_crates.ui.main.screens.crates_summary.component.CrateOverviews
 import kotlinx.coroutines.flow.collectLatest
@@ -28,7 +22,7 @@ fun CratesSummaryScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
 
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(Unit) {
         cratesSummaryViewModel.eventFlow.collectLatest { event ->
             when (event) {
                 is UIEvent.ShowSnackbar -> {
@@ -46,12 +40,12 @@ fun CratesSummaryScreen(
             .padding(horizontal = 16.dp)
     ) {
         when (val cratesSummary = cratesSummaryViewModel.cratesSummaryState.cratesSummary) {
-            is Resource.Error -> {
+            is CratesResult.Error -> {
                 item {
                     Text("Error")
                 }
             }
-            is Resource.Loaded -> {
+            is CratesResult.Loaded -> {
                 item {
                     CrateOverviews("New Crates", cratesSummary.data.newCrates)
                 }
@@ -62,7 +56,7 @@ fun CratesSummaryScreen(
                     CrateOverviews("Just Updated", cratesSummary.data.justUpdatedCrate)
                 }
             }
-            is Resource.Loading -> {
+            is CratesResult.Loading -> {
                 item {
                     CrateOverviews("New Crates")
                 }

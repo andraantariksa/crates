@@ -61,13 +61,7 @@ class CratesIoRepositoryImpl @Inject constructor(
         return result
     }
 
-    override suspend fun getBeginAuthData(): Result<AuthBegin> = try {
-        Result.success(cratesIoDatasourceRemote.getBeginAuthData())
-    } catch (exception: NoNetworkException) {
-        Result.failure(exception)
-    } catch (exception: Exception) {
-        Result.failure(exception)
-    }
+    override suspend fun getBeginAuthData(): AuthBegin = cratesIoDatasourceRemote.getBeginAuthData()
 
     override suspend fun authorizeOauth(code: String, state: String): Result<User> = try {
         Result.success(cratesIoDatasourceRemote.authorizeOauth(code, state).user)
